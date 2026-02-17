@@ -1,4 +1,4 @@
-import type { BetResult, UserData, Currency } from '@app-types';
+import type { BetResult, UserData, Currency } from '@shared/types';
 import { storage } from './storage';
 
 export const mockApi = {

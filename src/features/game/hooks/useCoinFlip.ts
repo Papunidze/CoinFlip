@@ -1,7 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-
-export type CoinSide = "heads" | "tails";
-export type AnimPhase = "idle" | "spinning" | "result";
+import type { CoinSide, AnimPhase } from "@shared/types";
 
 interface UseCoinFlipReturn {
   phase: AnimPhase;

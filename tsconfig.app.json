@@ -17,9 +17,14 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@api": ["src/api/index.ts"],
-      "@app-types": ["src/types/index.ts"],
-      "@app-componenets": ["src/components/index.ts"]
+      "@app/*": ["src/app/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@api/*": ["src/shared/api/*"],
+      "@app-types/*": ["src/shared/types/*"],
+      "@app-components/*": ["src/shared/components/*"]
     },
 
     /* Linting */

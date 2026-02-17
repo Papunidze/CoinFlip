@@ -71,12 +71,88 @@
   --font-family-monospace: var(--roboto-mono-font);
   --topbar-height: 64px;
   --logo-size: 32px;
-  --home-botom-radius: 200px;
-  --home-gradient:
-    radial-gradient(circle at 30% 30%, #1b1e38, #0a0c23 70%),
-    radial-gradient(
-      circle at bottom left,
-      rgba(255, 195, 160, 0.3),
-      transparent 60%
-    );
+
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-bg-hover: rgba(255, 255, 255, 0.05);
+  --glass-bg-active: rgba(255, 255, 255, 0.08);
+  --glass-bg-raised: rgba(255, 255, 255, 0.06);
+  --glass-bg-inset: rgba(0, 0, 0, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.04);
+  --glass-border-light: rgba(255, 255, 255, 0.06);
+  --glass-border-hover: rgba(255, 255, 255, 0.1);
+  --glass-placeholder: rgba(255, 255, 255, 0.15);
+
+  --glow-accent-bg: rgba(255, 216, 74, 0.08);
+  --glow-accent-border: rgba(255, 216, 74, 0.2);
+  --glow-accent-shadow: rgba(255, 216, 74, 0.06);
+  --glow-accent-soft: rgba(255, 216, 74, 0.03);
+  --glow-accent-strong: rgba(255, 216, 74, 0.4);
+  --glow-accent-ring: rgba(255, 216, 74, 0.25);
+  --glow-accent-focus: rgba(255, 216, 74, 0.5);
+
+  --glow-success-bg: rgba(52, 211, 153, 0.08);
+  --glow-success-bg-hover: rgba(52, 211, 153, 0.14);
+  --glow-success-border: rgba(52, 211, 153, 0.1);
+  --glow-success-border-hover: rgba(52, 211, 153, 0.2);
+  --glow-success-shadow: rgba(52, 211, 153, 0.1);
+  --glow-success-text: rgba(52, 211, 153, 0.4);
+  --glow-success-text-soft: rgba(52, 211, 153, 0.15);
+  --glow-success-muted: rgba(52, 211, 153, 0.7);
+
+  --glow-danger-bg: rgba(224, 82, 82, 0.08);
+  --glow-danger-bg-hover: rgba(224, 82, 82, 0.14);
+  --glow-danger-border: rgba(224, 82, 82, 0.1);
+  --glow-danger-border-hover: rgba(224, 82, 82, 0.2);
+  --glow-danger-shadow: rgba(224, 82, 82, 0.1);
+  --glow-danger-text: rgba(224, 82, 82, 0.4);
+  --glow-danger-text-soft: rgba(224, 82, 82, 0.15);
+  --glow-danger-muted: rgba(224, 82, 82, 0.7);
+
+  --gradient-accent: linear-gradient(135deg, #ffd84a 0%, #f0a030 100%);
+  --gradient-accent-text: linear-gradient(135deg, #ffd84a 0%, #ffab00 100%);
+  --gradient-surface: linear-gradient(
+    170deg,
+    rgba(26, 30, 38, 0.9) 0%,
+    rgba(18, 21, 26, 0.95) 100%
+  );
+  --gradient-panel: linear-gradient(
+    180deg,
+    var(--background-secondary) 0%,
+    rgba(22, 25, 32, 0.98) 100%
+  );
+  --gradient-topbar: linear-gradient(
+    180deg,
+    rgba(14, 16, 22, 0.95) 0%,
+    rgba(14, 16, 22, 0.85) 100%
+  );
+  --gradient-gloss: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
+  --gradient-body-gold: radial-gradient(
+    ellipse at 50% 0%,
+    var(--glow-accent-soft) 0%,
+    transparent 60%
+  );
+  --gradient-body-blue: radial-gradient(
+    ellipse at 80% 100%,
+    rgba(91, 164, 245, 0.02) 0%,
+    transparent 50%
+  );
+  --gradient-ambient: radial-gradient(
+    circle,
+    var(--glow-accent-shadow) 0%,
+    transparent 70%
+  );
+
+  --coin-shadow: drop-shadow(0 8px 32px rgba(255, 216, 74, 0.2))
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+  --logo-glow: drop-shadow(0 0 8px rgba(255, 216, 74, 0.3));
+
+  --btn-bet-text: rgba(18, 21, 26, 0.9);
+  --btn-bet-text-sub: rgba(18, 21, 26, 0.6);
+  --btn-bet-shadow-hover:
+    0 4px 20px rgba(255, 216, 74, 0.3), 0 0 40px rgba(255, 216, 74, 0.1);
+  --btn-bet-shadow-active: 0 2px 8px rgba(255, 216, 74, 0.2);
 }

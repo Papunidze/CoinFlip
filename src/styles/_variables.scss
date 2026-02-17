@@ -3,26 +3,29 @@ $secondary: rgb(249, 246, 242);
 $desktop-breakpoint: 1440px;
 
 $text-colors: (
-  primary: rgb(255, 221, 20),
-  secondary: rgb(102, 102, 102),
-  light: rgb(255, 255, 255),
-  link: rgb(41, 153, 245),
+  primary: #e8e6e3,
+  secondary: #8a8f98,
+  light: #f5f5f5,
+  muted: #5c6370,
+  accent: #ffd84a,
+  link: #5ba4f5,
 );
 
 $variants: (
-  primary: rgb(255, 221, 20),
+  primary: #ffd84a,
   secondary: rgb(63, 63, 70),
-  warning: rgb(245, 165, 36),
-  danger: rgb(229, 57, 53),
-  success: rgb(23, 201, 100),
+  warning: #f0a030,
+  danger: #e05252,
+  success: #34d399,
   loading: rgb(212, 212, 216),
   dark: #1d4ed8,
   IconButton-hoverBg: rgba(0, 0, 0, 0.04),
 );
 
 $backgrounds: (
-  primary: rgb(26, 30, 35),
-  secondary: rgb(7, 44, 56),
+  primary: #12151a,
+  secondary: #1a1e25,
+  tertiary: #222730,
   light: rgb(255, 255, 255),
 );
 

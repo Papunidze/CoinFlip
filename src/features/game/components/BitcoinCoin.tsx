@@ -22,13 +22,10 @@ const CoinBase = ({
       </linearGradient>
     </defs>
 
-    {/* Outer rim */}
     <circle cx="100" cy="100" r="96" fill={`url(#${id}-rim)`} />
 
-    {/* Gold face */}
     <circle cx="100" cy="100" r="88" fill={`url(#${id}-face)`} />
 
-    {/* Inner ring */}
     <circle
       cx="100"
       cy="100"

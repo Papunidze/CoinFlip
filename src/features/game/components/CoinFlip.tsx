@@ -1,12 +1,18 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCoinFlip } from '../../hooks/useCoinFlip';
+import type { AnimPhase, CoinSide } from '@shared/types';
+
 import CoinSpin from './CoinSpin';
 import BitcoinCoin from './BitcoinCoin';
-import './CoinFlip.scss';
+import './_game-module.scss';
 
-const CoinFlip = () => {
-  const { phase, result, hasWon } = useCoinFlip();
+interface CoinFlipProps {
+  phase: AnimPhase;
+  result: CoinSide | null;
+  hasWon: boolean | null;
+  selectedSide: CoinSide;
+}
 
+const CoinFlip = ({ phase, result, hasWon, selectedSide }: CoinFlipProps) => {
   return (
     <div className="coin-flip-page">
       <div className="coin-flip-panel">
@@ -38,7 +44,9 @@ const CoinFlip = () => {
                     stiffness: 180,
                   }}
                 >
-                  <BitcoinCoin side={result || 'heads'} />
+                  <BitcoinCoin
+                    side={phase === 'idle' ? selectedSide : result || 'heads'}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>

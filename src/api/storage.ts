@@ -1,4 +1,4 @@
-import type { UserData, BetResult } from '@app-types';
+import type { UserData, BetResult } from '@shared/types';
 
 const STORAGE_KEYS = {
   USER: 'fortunejack_user',
