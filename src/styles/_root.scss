@@ -3,6 +3,7 @@
 :root {
   --primary: #{$primary};
   --secondary: #{$secondary};
+  --desktop-breakpoint: #{$desktop-breakpoint};
 
   @each $name, $value in $variants {
     --variant-#{$name}: #{$value};

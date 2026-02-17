@@ -1,7 +1,12 @@
-import CoinFlip from "./components/CoinFlip";
+import { Coin, Header } from '@app-componenets';
 
 const App = () => {
-  return <CoinFlip />;
+  return (
+    <>
+      <Header />
+      <Coin />;
+    </>
+  );
 };
 
 export default App;

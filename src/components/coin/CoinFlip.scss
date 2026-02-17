@@ -1,0 +1,129 @@
+.coin-flip-page {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  font-family: var(--font-family-base);
+  max-width: var(--desktop-breakpoint);
+}
+
+.coin-flip-panel {
+  width: 100%;
+  max-width: var(--size);
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    background-color: var(--background-secondary);
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-xl);
+    min-height: 480px;
+    position: relative;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+  }
+
+  &__animation {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 600px;
+  }
+
+  &__scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .bitcoin-coin {
+      width: 220px;
+      height: 220px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    }
+
+    &--idle .bitcoin-coin {
+      animation: coinIdle 3s ease-in-out infinite;
+    }
+  }
+
+  &__result {
+    text-align: center;
+    min-height: 52px;
+  }
+
+  &__result-text {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+
+    &--win {
+      color: var(--variant-success);
+      text-shadow: 0 0 20px rgba(23, 201, 100, 0.3);
+    }
+
+    &--lose {
+      color: var(--variant-danger);
+      text-shadow: 0 0 20px rgba(229, 57, 53, 0.3);
+    }
+  }
+
+  &__result-detail {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: var(--spacing-xs);
+  }
+}
+
+@keyframes coinIdle {
+  0%,
+  100% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotateY(8deg);
+  }
+}
+
+.coin-spin {
+  perspective: 800px;
+  width: 220px;
+  height: 220px;
+
+  &__rotator {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+
+    &--spinning {
+      transform: rotateY(var(--end-angle));
+      transition: transform 1.6s cubic-bezier(0.32, 0.02, 0.12, 1);
+    }
+  }
+
+  &__face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 50%;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    }
+  }
+
+  &__face--back {
+    transform: rotateY(180deg);
+  }
+}

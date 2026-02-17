@@ -1,36 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCoinFlip, type CoinSide } from '../hooks/useCoinFlip';
-import CoinSpin from './svg/CoinSpin';
-import BitcoinCoin from './svg/BitcoinCoin';
+import { useCoinFlip } from '../../hooks/useCoinFlip';
+import CoinSpin from './CoinSpin';
+import BitcoinCoin from './BitcoinCoin';
 import './CoinFlip.scss';
 
 const CoinFlip = () => {
-  const [choice, setChoice] = useState<CoinSide>('heads');
-  const { phase, result, hasWon, flip } = useCoinFlip();
-  const [stats, setStats] = useState({ total: 0, wins: 0 });
-  const prevHasWon = useRef<boolean | null>(null);
-
-  useEffect(() => {
-    if (hasWon !== null && hasWon !== prevHasWon.current) {
-      prevHasWon.current = hasWon;
-      setStats((s) => ({
-        total: s.total + 1,
-        wins: s.wins + (hasWon ? 1 : 0),
-      }));
-    }
-  }, [hasWon]);
-
-  const canInteract = phase === 'idle';
+  const { phase, result, hasWon } = useCoinFlip();
 
   return (
     <div className="coin-flip-page">
       <div className="coin-flip-panel">
-        <div className="coin-flip-panel__header">
-          <h1 className="coin-flip-panel__title">Coin Flip</h1>
-          <span className="coin-flip-panel__subtitle">Pick a side & flip</span>
-        </div>
-
         <div className="coin-flip-panel__body">
           <div className="coin-flip-panel__animation">
             <AnimatePresence mode="wait">
@@ -89,45 +68,6 @@ const CoinFlip = () => {
               </motion.div>
             )}
           </AnimatePresence>
-
-          <div className="coin-flip-panel__controls">
-            <div className="coin-flip-panel__choices">
-              <button
-                className={`coin-flip-panel__choice ${choice === 'heads' ? 'coin-flip-panel__choice--active' : ''}`}
-                onClick={() => setChoice('heads')}
-                disabled={!canInteract}
-              >
-                Heads
-              </button>
-              <button
-                className={`coin-flip-panel__choice ${choice === 'tails' ? 'coin-flip-panel__choice--active' : ''}`}
-                onClick={() => setChoice('tails')}
-                disabled={!canInteract}
-              >
-                Tails
-              </button>
-            </div>
-
-            <button
-              className="coin-flip-panel__flip-btn"
-              onClick={() => flip(choice)}
-              disabled={!canInteract}
-            >
-              {canInteract ? 'Flip Coin' : 'Flipping...'}
-            </button>
-          </div>
-
-          <div className="coin-flip-panel__footer">
-            <div className="coin-flip-panel__stat">
-              Flips <span>{stats.total}</span>
-            </div>
-            <div className="coin-flip-panel__stat">
-              Wins <span>{stats.wins}</span>
-            </div>
-            <div className="coin-flip-panel__stat">
-              Losses <span>{stats.total - stats.wins}</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>

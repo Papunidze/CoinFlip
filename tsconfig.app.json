@@ -17,10 +17,9 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@app-types": ["src/types/index.ts"],
-      "@app-types/*": ["src/types/*"],
       "@api": ["src/api/index.ts"],
-      "@api/*": ["src/api/*"]
+      "@app-types": ["src/types/index.ts"],
+      "@app-componenets": ["src/components/index.ts"]
     },
 
     /* Linting */

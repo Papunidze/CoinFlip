@@ -1,16 +1,16 @@
 $primary: #2e4e79;
 $secondary: rgb(249, 246, 242);
+$desktop-breakpoint: 1440px;
 
 $text-colors: (
-  primary: rgb(23, 23, 23),
+  primary: rgb(255, 221, 20),
   secondary: rgb(102, 102, 102),
   light: rgb(255, 255, 255),
   link: rgb(41, 153, 245),
-  tertiary: rgb(153, 153, 153),
 );
 
 $variants: (
-  primary: rgb(46, 78, 121),
+  primary: rgb(255, 221, 20),
   secondary: rgb(63, 63, 70),
   warning: rgb(245, 165, 36),
   danger: rgb(229, 57, 53),
@@ -21,8 +21,8 @@ $variants: (
 );
 
 $backgrounds: (
-  primary: rgb(236, 237, 238),
-  secondary: rgb(0, 0, 0),
+  primary: rgb(26, 30, 35),
+  secondary: rgb(7, 44, 56),
   light: rgb(255, 255, 255),
 );
 
