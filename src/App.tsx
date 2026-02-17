@@ -1,5 +1,7 @@
+import CoinFlip from "./components/CoinFlip";
+
 const App = () => {
-  return <div>App</div>;
+  return <CoinFlip />;
 };
 
 export default App;

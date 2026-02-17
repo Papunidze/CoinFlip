@@ -1,0 +1,297 @@
+.coin-flip-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #0a0c1a;
+  padding: var(--spacing-xl);
+  font-family: var(--font-family-base);
+}
+
+.coin-flip-panel {
+  width: 100%;
+  max-width: 900px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-3xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: linear-gradient(180deg, #1a2038 0%, #151a2e 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  &__title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: #e2e8f0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--variant-success);
+      box-shadow: 0 0 6px var(--variant-success);
+    }
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-xl);
+    background: linear-gradient(180deg, #111827 0%, #0d1117 60%, #0a0e1a 100%);
+    min-height: 480px;
+    position: relative;
+  }
+
+  /* ── Animation area ── */
+  &__animation {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 600px;
+  }
+
+  &__scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .bitcoin-coin {
+      width: 220px;
+      height: 220px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    }
+
+    /* Idle: subtle float + gentle tilt */
+    &--idle .bitcoin-coin {
+      animation: coinIdle 3s ease-in-out infinite;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+  }
+
+  &__choices {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+
+  &__choice {
+    padding: var(--spacing-sm) var(--spacing-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    &:hover:not(:disabled) {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(46, 78, 121, 0.4);
+
+      &:hover:not(:disabled) {
+        border-color: var(--primary);
+        background: var(--primary);
+      }
+    }
+  }
+
+  &__flip-btn {
+    padding: var(--spacing-md) var(--spacing-3xl);
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+    color: #fff;
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.45);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__result {
+    text-align: center;
+    min-height: 52px;
+  }
+
+  &__result-text {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+
+    &--win {
+      color: var(--variant-success);
+      text-shadow: 0 0 20px rgba(23, 201, 100, 0.3);
+    }
+
+    &--lose {
+      color: var(--variant-danger);
+      text-shadow: 0 0 20px rgba(229, 57, 53, 0.3);
+    }
+  }
+
+  &__result-detail {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: var(--spacing-xs);
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: linear-gradient(180deg, #151a2e 0%, #1a2038 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    gap: var(--spacing-xl);
+  }
+
+  &__stat {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    span {
+      display: block;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: #e2e8f0;
+      margin-top: 2px;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════
+   Coin idle animation
+   ═══════════════════════════════════════ */
+
+@keyframes coinIdle {
+  0%,
+  100% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotateY(8deg);
+  }
+}
+
+/* ═══════════════════════════════════════
+   Coin Spin — CSS 3D
+   ═══════════════════════════════════════ */
+
+.coin-spin {
+  perspective: 800px;
+  width: 220px;
+  height: 220px;
+
+  &__rotator {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+
+    &--spinning {
+      transform: rotateY(var(--end-angle));
+      transition: transform 1.6s cubic-bezier(0.32, 0.02, 0.12, 1);
+    }
+  }
+
+  &__face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 50%;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    }
+  }
+
+  &__face--back {
+    transform: rotateY(180deg);
+  }
+}
+
+/* ═══════════════════════════════════════
+   Shared
+   ═══════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

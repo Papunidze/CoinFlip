@@ -15,6 +15,13 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@app-types": ["src/types/index.ts"],
+      "@app-types/*": ["src/types/*"],
+      "@api": ["src/api/index.ts"],
+      "@api/*": ["src/api/*"]
+    },
 
     /* Linting */
     "strict": true,
