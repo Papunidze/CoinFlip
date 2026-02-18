@@ -71,7 +71,6 @@
     gap: 10px;
   }
 
-  // Currency selector
   &__currency-selector {
     display: flex;
     gap: 6px;
@@ -183,7 +182,6 @@
     text-align: center;
     outline: none;
     color-scheme: dark;
-    -moz-appearance: textfield;
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -196,7 +194,6 @@
     }
   }
 
-  // Quick bets + actions
   &__quick-actions {
     display: flex;
     gap: 6px;
@@ -283,7 +280,6 @@
     }
   }
 
-  // Auto-bet section
   &__auto-section {
     display: flex;
     flex-direction: column;
@@ -371,6 +367,12 @@
     outline: none;
     transition: all var(--transition-fast);
 
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
     &::placeholder {
       color: var(--glass-placeholder);
     }
@@ -386,7 +388,6 @@
     }
   }
 
-  // Bet button
   &__place-bet {
     display: flex;
     align-items: center;
@@ -428,7 +429,6 @@
   }
 
   &__bet-amount {
-    font-family: var(--font-family-monospace);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: var(--btn-bet-text);
@@ -437,10 +437,11 @@
   }
 
   &__bet-label {
-    font-family: var(--font-family-heading);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     color: var(--btn-bet-text-sub);
+    line-height: 1;
+    position: relative;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     position: relative;

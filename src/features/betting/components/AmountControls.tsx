@@ -8,6 +8,7 @@ import {
 
 interface Props {
   amount: number;
+  maxAmount: number;
   onAdjust: (factor: number) => void;
   onAdd: (step: number) => void;
   onSet: (val: number) => void;
@@ -25,6 +26,7 @@ const handlers: Record<
 
 export const AmountControls = ({
   amount,
+  maxAmount,
   onAdjust,
   onAdd,
   onSet,
@@ -33,6 +35,10 @@ export const AmountControls = ({
   const actions = { onSet, onAdjust, onAdd };
 
   const handleClick = (action: AmountAction) => {
+    if (action.label === 'MAX') {
+      onSet(maxAmount);
+      return;
+    }
     actions[handlers[action.type]](action.value);
   };
 

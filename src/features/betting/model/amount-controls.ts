@@ -15,7 +15,7 @@ export const AMOUNT_CONTROLS: AmountAction[] = [
   { label: '100.00', value: 100, type: 'set' },
   { label: 'x2', value: 2, type: 'adjust', modifier: 'double' },
   { label: '½', value: 0.5, type: 'adjust', modifier: 'remove' },
-  { label: 'MAX', value: 1000, type: 'set' },
+  { label: 'MAX', value: 0, type: 'set' },
 ];
 
 export const STEP_BUTTONS = AMOUNT_CONTROLS.filter((a) => a.type === 'add');

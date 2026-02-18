@@ -1,15 +1,20 @@
-import { useBetForm } from '../hooks/useBetForm';
 import { SideSelector } from './SideSelector';
 import { CurrencyTabs } from './CurrencyTabs';
 import { AmountControls } from './AmountControls';
 import { AutoBetConfig } from './AutoBetConfig';
+import BetButton from './BetButton';
+
 import type { CoinSide } from '@shared/types';
+import type { BetFormState } from '../hooks/useBetForm';
 
 import './_betting-module.scss';
 
 interface BetControllerProps {
-  onBet: (side: CoinSide, amount: number) => void;
+  onBet: (side: CoinSide) => void;
   disabled: boolean;
+  isAutoActive: boolean;
+  form: BetFormState;
+  maxAmount: number;
   onSideChange: (side: CoinSide) => void;
   selectedSide: CoinSide;
 }
@@ -17,32 +22,36 @@ interface BetControllerProps {
 const BetController = ({
   onBet,
   disabled,
+  isAutoActive,
+  form,
+  maxAmount,
   onSideChange,
   selectedSide,
 }: BetControllerProps) => {
-  const form = useBetForm();
+  const controlsDisabled = disabled || isAutoActive;
 
   return (
     <div className="bet-controller">
       <SideSelector
         selected={selectedSide}
         onChange={onSideChange}
-        disabled={disabled}
+        disabled={controlsDisabled}
       />
 
       <div className="bet-controller__panel">
         <CurrencyTabs
           selected={form.currency}
           onChange={form.setCurrency}
-          disabled={disabled}
+          disabled={controlsDisabled}
         />
 
         <AmountControls
           amount={form.amount}
+          maxAmount={maxAmount}
           onAdjust={form.adjustAmount}
           onAdd={form.addAmount}
           onSet={form.setAmount}
-          disabled={disabled}
+          disabled={controlsDisabled}
         />
 
         <AutoBetConfig
@@ -52,20 +61,19 @@ const BetController = ({
           onStopWinChange={form.setStopWin}
           stopLoss={form.stopLoss}
           onStopLossChange={form.setStopLoss}
-          disabled={disabled}
+          disabled={controlsDisabled}
         />
       </div>
 
-      <button
-        className="bet-controller__place-bet"
-        onClick={() => onBet(selectedSide, form.amount)}
+      <BetButton
+        onBet={() => onBet(selectedSide)}
+        amount={form.amount}
+        currency={form.currency}
+        isAuto={form.isAuto}
+        isAutoActive={isAutoActive}
         disabled={disabled}
-      >
-        <span className="bet-controller__bet-amount">
-          {form.amount.toFixed(2)}
-        </span>
-        <span className="bet-controller__bet-label">Bet</span>
-      </button>
+        maxAmount={maxAmount}
+      />
     </div>
   );
 };

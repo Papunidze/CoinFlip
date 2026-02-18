@@ -60,6 +60,7 @@
   @each $name, $value in $scrollbar {
     --scrollbar-#{$name}: #{$value};
   }
+  --font-poppins: 'Poppins';
   --satoshi-font: var(--font-satoshi, 'Helvetica Neue', Arial, sans-serif);
   --poppins-font: var(--font-poppins, 'Helvetica Neue', Arial, sans-serif);
   --inter-font: var(--font-inter, 'Helvetica Neue', Arial, sans-serif);
@@ -151,7 +152,7 @@
   --logo-glow: drop-shadow(0 0 8px rgba(255, 216, 74, 0.3));
 
   --btn-bet-text: rgba(18, 21, 26, 0.9);
-  --btn-bet-text-sub: rgba(18, 21, 26, 0.6);
+  --btn-bet-text-sub: rgba(0, 105, 62, 1);
   --btn-bet-shadow-hover:
     0 4px 20px rgba(255, 216, 74, 0.3), 0 0 40px rgba(255, 216, 74, 0.1);
   --btn-bet-shadow-active: 0 2px 8px rgba(255, 216, 74, 0.2);

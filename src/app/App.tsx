@@ -1,19 +1,31 @@
 import { useState } from 'react';
 import { Header } from '@shared/ui/header/components';
-import { useCoinFlip } from '@features/game/hooks/useCoinFlip';
 import type { CoinSide } from '@shared/types';
 import { BetHistory } from '@features/history';
 import { BetController } from '@features/betting';
 import { CoinFlip } from '@features/game';
 import { Statistics, EMPTY_STATS } from '@features/statistics';
-import { AuthPopup, useAuth } from '@features/auth';
+import { AuthPopup } from '@features/auth';
+import { useBet } from '@features/betting/hooks/useBet';
 
 import './App.scss';
 
 const App = () => {
   const [selectedSide, setSelectedSide] = useState<CoinSide>('heads');
-  const { phase, result, hasWon, flip } = useCoinFlip();
-  const { user, isPopupOpen, login, openPopup, closePopup } = useAuth();
+  const {
+    user,
+    phase,
+    result,
+    hasWon,
+    placeBet,
+    isAutoActive,
+    form,
+    maxAmount,
+    isPopupOpen,
+    login,
+    openPopup,
+    closePopup,
+  } = useBet();
 
   return (
     <>
@@ -28,8 +40,11 @@ const App = () => {
             selectedSide={selectedSide}
           />
           <BetController
-            onBet={(side) => flip(side)}
+            onBet={placeBet}
             disabled={phase !== 'idle'}
+            isAutoActive={isAutoActive}
+            form={form}
+            maxAmount={maxAmount}
             onSideChange={setSelectedSide}
             selectedSide={selectedSide}
           />

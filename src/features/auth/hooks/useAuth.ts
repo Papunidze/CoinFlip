@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { Balance, UserData } from '@shared/types/coin';
+import type { Balance, UserData, Currency } from '@shared/types/coin';
 import { CurrencyEnum } from '@shared/types/coin';
 import { storage } from '@api/storage';
 
@@ -28,5 +28,10 @@ export const useAuth = () => {
   const openPopup = useCallback(() => setIsPopupOpen(true), []);
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
-  return { user, isPopupOpen, login, openPopup, closePopup };
+  const updateBalance = useCallback((amount: number, currency: Currency) => {
+    const updatedUser = storage.updateBalance(amount, currency);
+    setUser(updatedUser);
+  }, []);
+
+  return { user, isPopupOpen, login, openPopup, closePopup, updateBalance };
 };
