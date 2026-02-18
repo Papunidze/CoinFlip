@@ -1,11 +1,29 @@
-export type CoinSide = "heads" | "tails";
-export type AnimPhase = "idle" | "spinning" | "result";
+export const AnimationPhaseEnum = {
+  IDLE: 'idle',
+  SPINNING: 'spinning',
+  RESULT: 'result',
+} as const;
 
-export type Currency = "BTC" | "ETH" | "SOL";
+export const CoinSideEnum = {
+  HEADS: 'heads',
+  TAILS: 'tails',
+} as const;
+
+export const CurrencyEnum = {
+  BTC: 'BTC',
+  ETH: 'ETH',
+  SOL: 'SOL',
+} as const;
+
+export type AnimationPhase =
+  (typeof AnimationPhaseEnum)[keyof typeof AnimationPhaseEnum];
+
+export type CoinSide = (typeof CoinSideEnum)[keyof typeof CoinSideEnum];
+export type Currency = (typeof CurrencyEnum)[keyof typeof CurrencyEnum];
 
 export interface UserData {
-  balances: Record<Currency, number>;
   preferredCurrency: Currency;
+  balances: Record<Currency, number>;
 }
 
 export interface BetResult {

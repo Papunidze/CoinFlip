@@ -21,7 +21,6 @@
     border-radius: var(--radius-xl);
     overflow: hidden;
 
-    // ambient glow
     &::before {
       content: '';
       position: absolute;

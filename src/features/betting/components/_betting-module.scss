@@ -179,6 +179,14 @@
     font-weight: var(--font-weight-bold);
     text-align: center;
     outline: none;
+    color-scheme: dark;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 
     &:disabled {
       opacity: 0.4;

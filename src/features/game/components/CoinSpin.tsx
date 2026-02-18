@@ -1,8 +1,9 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import { CoinBase, HeadsFace, TailsFace } from './BitcoinCoin';
+import type { CoinSide } from '@shared/types';
 
 interface CoinSpinProps {
-  result: 'heads' | 'tails';
+  result: CoinSide;
 }
 
 const CoinSpin = ({ result }: CoinSpinProps) => {
