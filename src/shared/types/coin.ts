@@ -28,7 +28,7 @@ export interface UserData {
 
 export interface BetResult {
   id: any;
-  isWin: boolean;
+  isWin: any;
   payout: number;
   amount: number;
   currency: Currency;
