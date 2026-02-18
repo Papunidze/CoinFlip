@@ -19,6 +19,7 @@ const App = () => {
     <>
       <Header username={user.name} onProfileClick={openPopup} />
       <div className="game-layout">
+        Test Deploy
         <BetHistory />
         <main className="game-layout__main">
           <CoinFlip
