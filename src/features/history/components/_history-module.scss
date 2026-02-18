@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .bet-history {
   width: 56px;
   flex-shrink: 0;
@@ -51,6 +54,36 @@
         background: var(--glow-danger-bg-hover);
         box-shadow: 0 0 8px var(--glow-danger-shadow);
       }
+    }
+  }
+
+  @include respond(md) {
+    width: 100%;
+    flex-direction: row;
+    order: -1;
+
+    &__list {
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-height: none;
+      padding: 0 var(--spacing-xs);
+      gap: 4px;
+    }
+
+    &__badge {
+      width: auto;
+      min-width: 44px;
+      padding: 5px 8px;
+      flex-shrink: 0;
+    }
+  }
+
+  @include respond(sm) {
+    &__badge {
+      min-width: 38px;
+      padding: 4px 6px;
+      font-size: 8px;
     }
   }
 }

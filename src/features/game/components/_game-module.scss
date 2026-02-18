@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .coin-flip-page {
   display: flex;
   justify-content: center;
@@ -96,6 +99,59 @@
     color: var(--text-color-muted);
     margin-top: var(--spacing-xs);
   }
+
+  @include respond(md) {
+    &__body {
+      min-height: 240px;
+      padding: var(--spacing-lg) var(--spacing-md);
+      gap: var(--spacing-md);
+    }
+
+    &__animation {
+      width: 140px;
+      height: 140px;
+    }
+
+    &__scene .bitcoin-coin {
+      width: 120px;
+      height: 120px;
+    }
+
+    &__result-text {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  @include respond(sm) {
+    &__body {
+      min-height: 180px;
+      padding: var(--spacing-md) var(--spacing-sm);
+      gap: var(--spacing-sm);
+
+      &::before {
+        width: 200px;
+        height: 200px;
+      }
+    }
+
+    &__animation {
+      width: 110px;
+      height: 110px;
+    }
+
+    &__scene .bitcoin-coin {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__result-text {
+      font-size: var(--font-size-lg);
+    }
+
+    &__result {
+      min-height: 36px;
+    }
+  }
 }
 
 @keyframes coinIdle {
@@ -112,6 +168,16 @@
   perspective: 800px;
   width: 180px;
   height: 180px;
+
+  @include respond(md) {
+    width: 120px;
+    height: 120px;
+  }
+
+  @include respond(sm) {
+    width: 100px;
+    height: 100px;
+  }
 
   &__rotator {
     width: 100%;

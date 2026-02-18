@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .bet-controller {
   width: 100%;
   display: flex;
@@ -441,5 +444,80 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     position: relative;
+  }
+
+  @include respond(md) {
+    &__panel {
+      padding: var(--spacing-md);
+      gap: var(--spacing-sm);
+    }
+
+    &__quick-actions {
+      flex-wrap: wrap;
+    }
+
+    &__place-bet {
+      padding: 12px var(--spacing-lg);
+    }
+  }
+
+  @include respond(sm) {
+    &__side-btn {
+      padding: 8px var(--spacing-md);
+      font-size: 10px;
+    }
+
+    &__panel {
+      padding: var(--spacing-sm);
+    }
+
+    &__currency-btn {
+      padding: 5px 6px;
+      font-size: 10px;
+      gap: 4px;
+    }
+
+    &__currency-icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    &__adjust-btn {
+      width: 24px;
+      height: 24px;
+      font-size: var(--font-size-xs);
+    }
+
+    &__input {
+      width: 52px;
+      font-size: var(--font-size-xs);
+    }
+
+    &__quick-btn {
+      padding: 4px;
+      font-size: 10px;
+    }
+
+    &__action-btn {
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+
+    &__place-bet {
+      padding: 10px var(--spacing-md);
+    }
+
+    &__bet-amount {
+      font-size: var(--font-size-base);
+    }
+
+    &__bet-label {
+      font-size: var(--font-size-xs);
+    }
+
+    &__stop-input {
+      padding: 5px var(--spacing-xs);
+      font-size: 10px;
+    }
   }
 }

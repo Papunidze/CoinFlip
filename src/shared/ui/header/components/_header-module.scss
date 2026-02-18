@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .topbar {
   position: sticky;
   top: 0;
@@ -116,6 +119,65 @@
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
     color: var(--text-color-secondary);
+  }
+
+  @include respond(lg) {
+    &__balances {
+      gap: 2px;
+    }
+
+    &__balance {
+      padding: 5px 8px;
+      gap: 4px;
+    }
+
+    &__balance-value {
+      font-size: 10px;
+    }
+  }
+
+  @include respond(md) {
+    height: 56px;
+
+    &__inner {
+      padding: 0 var(--spacing-md);
+    }
+
+    &__logo-text {
+      font-size: var(--font-size-lg);
+    }
+
+    &__balances {
+      display: none;
+    }
+
+    &__profile {
+      padding: 5px 10px;
+    }
+
+    &__username {
+      max-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  @include respond(sm) {
+    height: 48px;
+
+    &__inner {
+      padding: 0 var(--spacing-sm);
+    }
+
+    &__logo-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    &__logo-text {
+      font-size: var(--font-size-base);
+    }
   }
 }
 

@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .auth-overlay {
   position: fixed;
   inset: 0;
@@ -12,6 +15,7 @@
 
 .auth-popup {
   width: 340px;
+  max-width: calc(100dvw - var(--spacing-xl) * 2);
   background: var(--gradient-panel);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
@@ -140,6 +144,25 @@
       cursor: not-allowed;
       transform: none;
       box-shadow: none;
+    }
+  }
+
+  @include respond(sm) {
+    &__header {
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    &__body {
+      padding: var(--spacing-lg);
+      gap: var(--spacing-md);
+    }
+
+    &__input {
+      padding: 8px var(--spacing-sm);
+    }
+
+    &__submit {
+      padding: 10px;
     }
   }
 }

@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .statistics {
   width: 220px;
   flex-shrink: 0;
@@ -125,5 +128,58 @@
     font-size: 10px;
     color: var(--text-color-muted);
     font-weight: var(--font-weight-medium);
+  }
+
+  @include respond(lg) {
+    width: 100%;
+    order: 2;
+
+    &__body {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    &__row {
+      flex: 1 1 calc(50% - 1px);
+      min-width: 160px;
+
+      &::after {
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+
+  @include respond(md) {
+    &__header {
+      padding: 10px var(--spacing-md);
+    }
+
+    &__row {
+      padding: 10px var(--spacing-md);
+    }
+  }
+
+  @include respond(sm) {
+    &__body {
+      flex-direction: column;
+    }
+
+    &__row {
+      flex: none;
+      padding: 8px var(--spacing-sm);
+    }
+
+    &__label {
+      font-size: 10px;
+    }
+
+    &__value {
+      font-size: var(--font-size-xs);
+    }
+
+    &__ratio {
+      font-size: var(--font-size-xs);
+    }
   }
 }
