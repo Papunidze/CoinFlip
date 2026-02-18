@@ -1,6 +1,5 @@
-import type { UserData, Currency } from '@shared/types';
+import type { UserData, Currency, History } from '@shared/types';
 import { storage } from './storage';
-import type { History } from '@shared/types/coin';
 
 export const mockApi = {
   getUserData: async (): Promise<UserData> => {

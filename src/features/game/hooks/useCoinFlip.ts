@@ -1,15 +1,10 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import type {
-  CoinSide,
-  AnimationPhase,
-  Currency,
-  BetResult,
-} from '@shared/types';
+import type { CoinSide, AnimationPhase, Currency, History } from '@shared/types';
 import { RESULT_DISPLAY, SPIN_DURATION } from '../model/animation';
 import { mockApi } from '@api/mockApi';
 
 interface UseCoinFlipOptions {
-  onBetComplete?: (result: BetResult) => void;
+  onBetComplete?: (result: History) => void;
 }
 
 interface UseCoinFlipReturn {
@@ -67,7 +62,6 @@ export function useCoinFlip({
       setPhase('result');
       onBetComplete?.(betResult);
 
-      // Wait for result display then resolve — lets callers await the full cycle
       await new Promise<void>((resolve) => {
         const t2 = window.setTimeout(() => {
           phaseRef.current = 'idle';

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import type { Balance, UserData, Currency } from '@shared/types/coin';
-import { CurrencyEnum } from '@shared/types/coin';
+import { type UserData, type Currency, type Balance } from '@shared/types';
 import { storage } from '@api/storage';
+import { CurrencyEnum } from '@shared/types/coin';
 
 const defaultBalanceAmount = 1000;
 
@@ -18,7 +18,7 @@ export const useAuth = () => {
   const login = useCallback((name: string) => {
     const trimmed = name.trim();
     if (trimmed) {
-      const newUser = { name: trimmed, balances: defaultBalance };
+      const newUser = { name: trimmed, balances: defaultBalance, history: [] };
       storage.saveUser(newUser);
       setUser(newUser);
     }

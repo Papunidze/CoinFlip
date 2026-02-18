@@ -1,5 +1,4 @@
-import type { UserData, Currency } from '@shared/types';
-import type { Balance, History } from '@shared/types/coin';
+import type { UserData, Currency, Balance, History } from '@shared/types';
 
 const STORAGE_KEYS = {
   USER: 'user',

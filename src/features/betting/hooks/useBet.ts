@@ -3,8 +3,7 @@ import { useAuth } from '@features/auth';
 import { useCoinFlip } from '@features/game/hooks/useCoinFlip';
 import { useBetForm } from './useBetForm';
 import type { BetFormState } from './useBetForm';
-import type { CoinSide } from '@shared/types';
-import type { History } from '@shared/types/coin';
+import type { CoinSide, History } from '@shared/types';
 
 export const useBet = () => {
   const { user, updateBalance, isPopupOpen, login, openPopup, closePopup } =
@@ -34,13 +33,16 @@ export const useBet = () => {
   const sessionProfit = useRef(0);
 
   const formRef = useRef(form);
-  formRef.current = form;
   const userRef = useRef(user);
-  userRef.current = user;
   const maxAmountRef = useRef(maxAmount);
-  maxAmountRef.current = maxAmount;
   const updateBalanceRef = useRef(updateBalance);
-  updateBalanceRef.current = updateBalance;
+
+  useEffect(() => {
+    formRef.current = form;
+    userRef.current = user;
+    maxAmountRef.current = maxAmount;
+    updateBalanceRef.current = updateBalance;
+  });
 
   const [isAutoActive, setIsAutoActive] = useState(false);
 
@@ -87,7 +89,10 @@ export const useBet = () => {
   }, [phase]);
 
   const flipRef = useRef(flip);
-  flipRef.current = flip;
+
+  useEffect(() => {
+    flipRef.current = flip;
+  });
 
   const runAutoBetLoop = useCallback(
     async (side: CoinSide) => {
