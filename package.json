@@ -10,6 +10,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky install",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:strict": "eslint \"**/*.{js,jsx,ts,tsx",
