@@ -58,6 +58,17 @@
       background: var(--glass-bg-active);
       color: var(--text-color-light);
     }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      &:hover {
+        background: var(--glass-bg);
+        color: var(--text-color-muted);
+      }
+    }
   }
 
   &__body {

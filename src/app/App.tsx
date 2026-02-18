@@ -17,9 +17,8 @@ const App = () => {
 
   return (
     <>
-      <Header username={user.name} onProfileClick={openPopup} />
+      {user !== null && <Header user={user} onProfileClick={openPopup} />}
       <div className="game-layout">
-        Test Deploy
         <BetHistory />
         <main className="game-layout__main">
           <CoinFlip
@@ -37,11 +36,12 @@ const App = () => {
         </main>
         <Statistics stats={EMPTY_STATS} />
       </div>
+
       {isPopupOpen && (
         <AuthPopup
-          currentName={user.name}
           onSubmit={login}
           onClose={closePopup}
+          isAuth={user !== null}
         />
       )}
     </>

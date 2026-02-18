@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import './_auth-module.scss';
 
 interface AuthPopupProps {
-  currentName: string;
+  isAuth: boolean;
   onSubmit: (name: string) => void;
   onClose: () => void;
 }
 
-const AuthPopup = ({ currentName, onSubmit, onClose }: AuthPopupProps) => {
-  const [name, setName] = useState(currentName === 'Guest' ? '' : currentName);
+const AuthPopup = ({ onSubmit, onClose, isAuth }: AuthPopupProps) => {
+  const [name, setName] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -31,7 +31,12 @@ const AuthPopup = ({ currentName, onSubmit, onClose }: AuthPopupProps) => {
       <form className="auth-popup" onSubmit={handleSubmit}>
         <div className="auth-popup__header">
           <span className="auth-popup__title">Auth</span>
-          <button type="button" className="auth-popup__close" onClick={onClose}>
+          <button
+            type="button"
+            className="auth-popup__close"
+            onClick={onClose}
+            disabled={!isAuth}
+          >
             ✕
           </button>
         </div>

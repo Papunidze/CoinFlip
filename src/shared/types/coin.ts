@@ -21,9 +21,11 @@ export type AnimationPhase =
 export type CoinSide = (typeof CoinSideEnum)[keyof typeof CoinSideEnum];
 export type Currency = (typeof CurrencyEnum)[keyof typeof CurrencyEnum];
 
+export type Balance = Record<Currency, number>;
+
 export interface UserData {
-  preferredCurrency: Currency;
-  balances: Record<Currency, number>;
+  name: string;
+  balances: Balance;
 }
 
 export interface BetResult {

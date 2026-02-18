@@ -1,25 +1,15 @@
 import type { UserData, BetResult } from '@shared/types';
 
 const STORAGE_KEYS = {
-  USER: 'fortunejack_user',
-  HISTORY: 'fortunejack_history',
+  USER: 'user',
+  HISTORY: 'history',
 } as const;
-
-const DEFAULT_USER: UserData = {
-  balances: { BTC: 1000, ETH: 1000, SOL: 1000 },
-  preferredCurrency: 'BTC',
-};
 
 export const storage = {
   getUser: (): UserData => {
-    const data = localStorage.getItem(STORAGE_KEYS.USER);
-    if (!data) {
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(DEFAULT_USER));
-      return DEFAULT_USER;
-    }
-    return JSON.parse(data);
+    const data = localStorage.getItem(STORAGE_KEYS.USER)!;
+    return JSON.parse(data) as UserData;
   },
-
   saveUser: (userData: UserData): void => {
     localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(userData));
   },
