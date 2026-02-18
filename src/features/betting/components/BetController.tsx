@@ -3,21 +3,30 @@ import { SideSelector } from './SideSelector';
 import { CurrencyTabs } from './CurrencyTabs';
 import { AmountControls } from './AmountControls';
 import { AutoBetConfig } from './AutoBetConfig';
+import type { CoinSide } from '@shared/types';
+
 import './_betting-module.scss';
 
 interface BetControllerProps {
-  onBet: (side: any, amount: number) => void;
+  onBet: (side: CoinSide, amount: number) => void;
   disabled: boolean;
+  onSideChange: (side: CoinSide) => void;
+  selectedSide: CoinSide;
 }
 
-const BetController = ({ onBet, disabled }: BetControllerProps) => {
+const BetController = ({
+  onBet,
+  disabled,
+  onSideChange,
+  selectedSide,
+}: BetControllerProps) => {
   const form = useBetForm();
 
   return (
     <div className="bet-controller">
       <SideSelector
-        selected={form.side}
-        onChange={form.setSide}
+        selected={selectedSide}
+        onChange={onSideChange}
         disabled={disabled}
       />
 
@@ -49,7 +58,7 @@ const BetController = ({ onBet, disabled }: BetControllerProps) => {
 
       <button
         className="bet-controller__place-bet"
-        onClick={() => onBet(form.side, form.amount)}
+        onClick={() => onBet(selectedSide, form.amount)}
         disabled={disabled}
       >
         <span className="bet-controller__bet-amount">

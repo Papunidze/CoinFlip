@@ -1,7 +1,12 @@
 import UserInfo from './UserInfo';
 import './_header-module.scss';
 
-const Header = () => {
+interface HeaderProps {
+  username: string;
+  onProfileClick: () => void;
+}
+
+const Header = ({ username, onProfileClick }: HeaderProps) => {
   return (
     <header className="topbar">
       <div className="topbar__inner">
@@ -13,7 +18,7 @@ const Header = () => {
           />
           <span className="topbar__logo-text">CoinFlip</span>
         </div>
-        <UserInfo username="User Name" />
+        <UserInfo username={username} onProfileClick={onProfileClick} />
       </div>
     </header>
   );

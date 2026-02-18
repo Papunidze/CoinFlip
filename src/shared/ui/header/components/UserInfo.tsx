@@ -8,9 +8,10 @@ const BALANCES: { currency: Currency; amount: number }[] = [
 
 interface UserInfoProps {
   username: string;
+  onProfileClick: () => void;
 }
 
-const UserInfo = ({ username }: UserInfoProps) => {
+const UserInfo = ({ username, onProfileClick }: UserInfoProps) => {
   return (
     <div className="topbar__user">
       <div className="topbar__balances">
@@ -27,7 +28,7 @@ const UserInfo = ({ username }: UserInfoProps) => {
           </div>
         ))}
       </div>
-      <div className="topbar__profile">
+      <div className="topbar__profile" onClick={onProfileClick}>
         <img src="/icons/user.svg" alt="User" className="topbar__user-icon" />
         <span className="topbar__username">{username}</span>
       </div>

@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import type { Currency, CoinSide } from '@shared/types';
+import type { Currency } from '@shared/types';
 
 export const useBetForm = () => {
-  const [side, setSide] = useState<CoinSide>('heads');
   const [amount, setAmount] = useState(1.0);
   const [currency, setCurrency] = useState<Currency>('BTC');
   const [isAuto, setIsAuto] = useState(false);
@@ -15,8 +14,6 @@ export const useBetForm = () => {
     setAmount((prev) => Math.max(0.5, +(prev + step).toFixed(2)));
 
   return {
-    side,
-    setSide,
     amount,
     setAmount,
     currency,
