@@ -1,5 +1,6 @@
-import type { BetResult, UserData, Currency } from '@shared/types';
+import type { UserData, Currency } from '@shared/types';
 import { storage } from './storage';
+import type { History } from '@shared/types/coin';
 
 export const mockApi = {
   getUserData: async (): Promise<UserData> => {
@@ -22,14 +23,13 @@ export const mockApi = {
   flipCoin: async (
     betAmount: number,
     selectedCrypto: Currency,
-  ): Promise<BetResult> => {
+  ): Promise<History> => {
     return new Promise((resolve) => {
       const responseTime = Math.floor(Math.random() * 2700) + 300;
 
       setTimeout(() => {
         const isWin = Math.random() >= 0.5;
-        const result: BetResult = {
-          id: crypto.randomUUID(),
+        const result: History = {
           isWin,
           payout: isWin ? betAmount * 2 : 0,
           amount: betAmount,
@@ -43,7 +43,7 @@ export const mockApi = {
     });
   },
 
-  getHistory: async (): Promise<BetResult[]> => {
+  getHistory: async (): Promise<History[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(storage.getHistory());

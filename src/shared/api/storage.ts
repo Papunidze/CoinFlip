@@ -1,9 +1,8 @@
-import type { UserData, BetResult, Currency } from '@shared/types';
-import type { Balance } from '@shared/types/coin';
+import type { UserData, Currency } from '@shared/types';
+import type { Balance, History } from '@shared/types/coin';
 
 const STORAGE_KEYS = {
   USER: 'user',
-  HISTORY: 'history',
 } as const;
 
 export const storage = {
@@ -26,15 +25,15 @@ export const storage = {
     localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(updatedUser));
   },
 
-  getHistory: (): BetResult[] => {
-    const history = localStorage.getItem(STORAGE_KEYS.HISTORY);
-    return history ? JSON.parse(history) : [];
+  getHistory: (): History[] => {
+    const history = storage.getUser()?.history;
+    return history ?? [];
   },
 
-  saveBet: (bet: BetResult): void => {
-    const history = storage.getHistory();
-    const updatedHistory = [bet, ...history].slice(0, 20);
-    localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(updatedHistory));
+  saveBet: (bet: History): void => {
+    const userData = storage.getUser();
+    const updatedHistory = [bet, ...storage.getHistory()].slice(0, 20);
+    storage.saveUser({ ...userData, history: updatedHistory });
   },
 
   updateBalance: (amount: number, currency: Currency): UserData => {

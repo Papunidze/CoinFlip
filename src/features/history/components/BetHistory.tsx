@@ -1,5 +1,5 @@
 import './_history-module.scss';
-import BetHistoryList from './BetHistoryList';
+import { BetHistoryList } from './BetHistoryList';
 
 const BetHistory = () => {
   return (

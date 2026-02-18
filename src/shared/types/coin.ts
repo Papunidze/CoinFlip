@@ -23,16 +23,16 @@ export type Currency = (typeof CurrencyEnum)[keyof typeof CurrencyEnum];
 
 export type Balance = Record<Currency, number>;
 
-export interface UserData {
-  name: string;
-  balances: Balance;
-}
-
-export interface BetResult {
-  id: string;
+export interface History {
   isWin: boolean;
   payout: number;
   amount: number;
   currency: Currency;
   timestamp: string;
+}
+
+export interface UserData {
+  name: string;
+  balances: Balance;
+  history: History[];
 }

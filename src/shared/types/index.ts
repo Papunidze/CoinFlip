@@ -1,7 +1,1 @@
-export type {
-  CoinSide,
-  AnimationPhase,
-  Currency,
-  UserData,
-  BetResult,
-} from './coin';
+export type { CoinSide, AnimationPhase, Currency, UserData } from './coin';

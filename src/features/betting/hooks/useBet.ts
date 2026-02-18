@@ -3,7 +3,8 @@ import { useAuth } from '@features/auth';
 import { useCoinFlip } from '@features/game/hooks/useCoinFlip';
 import { useBetForm } from './useBetForm';
 import type { BetFormState } from './useBetForm';
-import type { CoinSide, BetResult } from '@shared/types';
+import type { CoinSide } from '@shared/types';
+import type { History } from '@shared/types/coin';
 
 export const useBet = () => {
   const { user, updateBalance, isPopupOpen, login, openPopup, closePopup } =
@@ -50,7 +51,7 @@ export const useBet = () => {
   }, []);
 
   const onBetComplete = useCallback(
-    (betResult: BetResult) => {
+    (betResult: History) => {
       if (betResult.isWin) {
         updateBalanceRef.current(betResult.payout, betResult.currency);
       }
