@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import type { BetStats } from '@shared/types';
 import { STAT_ITEMS } from '../model/stats-config';
 import { StatRow } from './StatRow';
 import { WinLossRatio } from './WinLossRatio';
 import { ProfitValue } from './ProfitValue';
+import BetsModal from './BetsModal';
 import './_statistics-module.scss';
 
 interface StatisticsProps {
@@ -10,6 +12,8 @@ interface StatisticsProps {
 }
 
 const Statistics = ({ stats }: StatisticsProps) => {
+  const [popupType, setPopupType] = useState<'win' | 'loss' | null>(null);
+
   const renderValue = (key: string, format: string, variant: string) => {
     const value = stats[key as keyof BetStats] as number;
 
@@ -44,19 +48,34 @@ const Statistics = ({ stats }: StatisticsProps) => {
     );
   };
 
+  const getClickHandler = (key: string) => {
+    if (key === 'biggestWin') return () => setPopupType('win');
+    if (key === 'biggestLoss') return () => setPopupType('loss');
+    return undefined;
+  };
+
   return (
-    <div className="statistics">
-      <div className="statistics__header">
-        <span className="statistics__title">Statistics</span>
+    <>
+      <div className="statistics">
+        <div className="statistics__header">
+          <span className="statistics__title">Statistics</span>
+        </div>
+        <div className="statistics__body">
+          {STAT_ITEMS.map((item) => (
+            <StatRow
+              key={item.key}
+              label={item.label}
+              onClick={getClickHandler(item.key)}
+            >
+              {renderValue(item.key, item.format, item.variant)}
+            </StatRow>
+          ))}
+        </div>
       </div>
-      <div className="statistics__body">
-        {STAT_ITEMS.map((item) => (
-          <StatRow key={item.key} label={item.label}>
-            {renderValue(item.key, item.format, item.variant)}
-          </StatRow>
-        ))}
-      </div>
-    </div>
+      {popupType !== null && (
+        <BetsModal type={popupType} onClose={() => setPopupType(null)} />
+      )}
+    </>
   );
 };
 
