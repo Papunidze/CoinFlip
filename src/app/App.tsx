@@ -39,6 +39,7 @@ const App = () => {
             result={result}
             hasWon={hasWon}
             selectedSide={selectedSide}
+            currency={form.currency}
           />
           <BetController
             onBet={placeBet}

@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import type { AnimationPhase, CoinSide } from '@shared/types';
+import type { AnimationPhase, CoinSide, Currency } from '@shared/types';
 
 import CoinSpin from './CoinSpin';
-import BitcoinCoin from './BitcoinCoin';
+import CurrencyCoin from './CurrencyCoin';
 import './_game-module.scss';
 import { AnimationPresets } from '../model/animation';
 
@@ -11,9 +11,10 @@ interface CoinFlipProps {
   result: CoinSide | null;
   hasWon: boolean | null;
   selectedSide: CoinSide;
+  currency: Currency;
 }
 
-const CoinFlip = ({ phase, result, hasWon, selectedSide }: CoinFlipProps) => {
+const CoinFlip = ({ phase, result, hasWon, selectedSide, currency }: CoinFlipProps) => {
   return (
     <div className="coin-flip-page">
       <div className="coin-flip-panel">
@@ -26,7 +27,7 @@ const CoinFlip = ({ phase, result, hasWon, selectedSide }: CoinFlipProps) => {
                   className="coin-flip-panel__scene"
                   {...AnimationPresets.COIN_SPIN}
                 >
-                  <CoinSpin result={result || 'heads'} />
+                  <CoinSpin result={result || 'heads'} currency={currency} />
                 </motion.div>
               ) : (
                 <motion.div
@@ -34,8 +35,9 @@ const CoinFlip = ({ phase, result, hasWon, selectedSide }: CoinFlipProps) => {
                   className={`coin-flip-panel__scene ${phase === 'idle' ? 'coin-flip-panel__scene--idle' : ''}`}
                   {...AnimationPresets.COIN_IDLE}
                 >
-                  <BitcoinCoin
+                  <CurrencyCoin
                     side={phase === 'idle' ? selectedSide : result || 'heads'}
+                    currency={currency}
                   />
                 </motion.div>
               )}

@@ -1,0 +1,22 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sol-logo-face" cx="0.42" cy="0.38" r="0.6">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="60%" stop-color="#9945FF" />
+      <stop offset="100%" stop-color="#7020D8" />
+    </radialGradient>
+    <linearGradient id="sol-logo-rim" x1="0.2" y1="0.1" x2="0.8" y2="0.9">
+      <stop offset="0%" stop-color="#7020D8" />
+      <stop offset="100%" stop-color="#4A10A8" />
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="url(#sol-logo-rim)" />
+  <circle cx="100" cy="100" r="88" fill="url(#sol-logo-face)" />
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#A87FFF" stroke-width="1.5" opacity="0.4" />
+  <g transform="translate(100, 100)">
+    <path d="M-26,-13 L20,-13 L26,-23 L-20,-23 Z" fill="rgba(255,255,255,0.9)" />
+    <path d="M-26,5 L20,5 L26,-5 L-20,-5 Z" fill="rgba(255,255,255,0.7)" />
+    <path d="M-26,23 L20,23 L26,13 L-20,13 Z" fill="rgba(255,255,255,0.9)" />
+  </g>
+  <ellipse cx="90" cy="62" rx="40" ry="22" fill="rgba(255,255,255,0.15)" />
+</svg>
