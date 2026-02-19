@@ -55,6 +55,25 @@
         box-shadow: 0 0 8px var(--glow-danger-shadow);
       }
     }
+
+    &--skeleton {
+      height: 27px;
+      border: 1px solid var(--glass-border);
+      background: linear-gradient(
+        90deg,
+        var(--glass-bg) 25%,
+        var(--glass-bg-hover) 50%,
+        var(--glass-bg) 75%
+      );
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+  }
+
+  @keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 
   @include respond(md) {

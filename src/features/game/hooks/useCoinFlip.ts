@@ -1,7 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import type { CoinSide, AnimationPhase, Currency, History } from '@shared/types';
+import type {
+  CoinSide,
+  AnimationPhase,
+  Currency,
+  History,
+} from '@shared/types';
 import { RESULT_DISPLAY, SPIN_DURATION } from '../model/animation';
-import { mockApi } from '@api/mockApi';
+import { useFlipCoin } from '../data-accses/action';
 
 interface UseCoinFlipOptions {
   onBetComplete?: (result: History) => void;
@@ -17,6 +22,8 @@ interface UseCoinFlipReturn {
 export function useCoinFlip({
   onBetComplete,
 }: UseCoinFlipOptions = {}): UseCoinFlipReturn {
+  const { mutateAsync: flipCoin } = useFlipCoin();
+
   const [phase, setPhase] = useState<AnimationPhase>('idle');
   const [result, setResult] = useState<CoinSide | null>(null);
   const [hasWon, setHasWon] = useState<boolean | null>(null);
@@ -31,7 +38,7 @@ export function useCoinFlip({
   const flip = useCallback(
     async (
       choice: CoinSide,
-      amount: number,
+      betAmount: number,
       currency: Currency,
     ): Promise<void> => {
       if (phaseRef.current !== 'idle') return;
@@ -41,13 +48,9 @@ export function useCoinFlip({
       setResult(null);
       setHasWon(null);
       setPhase('spinning');
-
       const [betResult] = await Promise.all([
-        mockApi.flipCoin(amount, currency),
-        new Promise<void>((resolve) => {
-          const t = window.setTimeout(resolve, SPIN_DURATION);
-          timeouts.current.push(t);
-        }),
+        flipCoin({ currency, betAmount }),
+        new Promise<void>((r) => setTimeout(r, SPIN_DURATION)),
       ]);
 
       const finalSide: CoinSide = betResult.isWin
@@ -71,7 +74,7 @@ export function useCoinFlip({
         timeouts.current.push(t2);
       });
     },
-    [clearTimeouts, onBetComplete],
+    [clearTimeouts, onBetComplete, flipCoin],
   );
 
   useEffect(() => clearTimeouts, [clearTimeouts]);

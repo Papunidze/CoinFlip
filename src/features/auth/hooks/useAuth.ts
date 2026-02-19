@@ -12,7 +12,7 @@ const defaultBalance = Object.values(CurrencyEnum).reduce<Balance>(
 );
 
 export const useAuth = () => {
-  const { data: user = null } = useGetUser();
+  const { data: user = null, isLoading } = useGetUser();
   const { mutate: createUser, isPending } = useCreateUser();
 
   const [isPopupOpen, setIsPopupOpen] = useState(!storage.getUser());
@@ -35,5 +35,5 @@ export const useAuth = () => {
   const openPopup = useCallback(() => setIsPopupOpen(true), []);
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
-  return { user, isPopupOpen, login, isPending, openPopup, closePopup };
+  return { user, isLoading, isPopupOpen, login, isPending, openPopup, closePopup };
 };

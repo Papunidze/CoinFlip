@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Header } from '@shared/ui/header/components';
+import { LoadingPage } from '@shared/ui/loading-page';
 import type { CoinSide } from '@shared/types';
 import { BetHistory } from '@features/history';
 import { BetController } from '@features/betting';
@@ -12,11 +13,12 @@ import './App.scss';
 
 const App = () => {
   const [selectedSide, setSelectedSide] = useState<CoinSide>('heads');
-  const { user, isPopupOpen, login, openPopup, closePopup, isPending } =
+  const { user, isLoading, isPopupOpen, login, openPopup, closePopup, isPending } =
     useAuth();
-
   const { phase, result, hasWon, placeBet, isAutoActive, form, maxAmount } =
     useBet(user);
+
+  if (isLoading) return <LoadingPage />;
 
   return (
     <>
