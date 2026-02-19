@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   BET_ACTIONS,
   QUICK_BETS,
@@ -32,6 +33,14 @@ export const AmountControls = ({
   onSet,
   disabled,
 }: Props) => {
+  const [inputValue, setInputValue] = useState(
+    amount > 0 ? amount.toFixed(2) : '',
+  );
+
+  useEffect(() => {
+    setInputValue(amount > 0 ? amount.toFixed(2) : '');
+  }, [amount]);
+
   const actions = { onSet, onAdjust, onAdd };
 
   const handleClick = (action: AmountAction) => {
@@ -57,8 +66,20 @@ export const AmountControls = ({
           <input
             className="bet-controller__input"
             type="number"
-            value={amount}
-            onChange={(e) => onSet(Number(e.target.value))}
+            value={inputValue}
+            onFocus={(e) => e.target.select()}
+            onKeyDown={(e) => {
+              if (['-', '+', 'e', 'E', ','].includes(e.key)) e.preventDefault();
+            }}
+            onChange={(e) => setInputValue(e.target.value)}
+            onBlur={() => {
+              const num = parseFloat(inputValue);
+              if (!isNaN(num) && num > 0) {
+                onSet(num);
+              } else {
+                setInputValue(amount > 0 ? amount.toFixed(2) : '');
+              }
+            }}
             disabled={disabled}
           />
           <button

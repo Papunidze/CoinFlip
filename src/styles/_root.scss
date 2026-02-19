@@ -61,7 +61,7 @@
     --scrollbar-#{$name}: #{$value};
   }
   --font-poppins: 'Poppins';
-  --satoshi-font: var(--font-satoshi, 'Helvetica Neue', Arial, sans-serif);
+  --satoshi-font: 'Satoshi', 'Helvetica Neue', Arial, sans-serif;
   --poppins-font: var(--font-poppins, 'Helvetica Neue', Arial, sans-serif);
   --inter-font: var(--font-inter, 'Helvetica Neue', Arial, sans-serif);
   --roboto-font: var(--font-roboto, 'Helvetica Neue', Arial, sans-serif);

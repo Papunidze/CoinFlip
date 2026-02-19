@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Currency } from '@shared/types';
 
 export const useBetForm = () => {
-  const [amount, setAmount] = useState(1.0);
+  const [amount, setAmount] = useState(0.5);
   const [currency, setCurrency] = useState<Currency>('BTC');
   const [isAuto, setIsAuto] = useState(false);
   const [stopWin, setStopWin] = useState<number>(0);

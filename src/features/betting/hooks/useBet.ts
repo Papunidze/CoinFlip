@@ -13,21 +13,21 @@ export const useBet = (user: UserData | null) => {
   const clampedForm: BetFormState = {
     ...form,
     setAmount: (val: number) =>
-      form.setAmount(Math.min(Math.max(1, +Number(val).toFixed(2)), cap)),
+      form.setAmount(Math.min(Math.max(0.5, +Number(val).toFixed(2)), cap)),
     adjustAmount: (factor: number) =>
       form.setAmount(
-        Math.max(1, Math.min(+(form.amount * factor).toFixed(2), cap)),
+        Math.max(0.5, Math.min(+(form.amount * factor).toFixed(2), cap)),
       ),
     addAmount: (step: number) =>
       form.setAmount(
-        Math.max(1, Math.min(+(form.amount + step).toFixed(2), cap)),
+        Math.max(0.5, Math.min(+(form.amount + step).toFixed(2), cap)),
       ),
   };
 
-  const latest = useRef({ form, maxAmount });
+  const latest = useRef({ form, maxAmount, user });
 
   useEffect(() => {
-    latest.current = { form, maxAmount };
+    latest.current = { form, maxAmount, user };
   });
 
   const [isAutoActive, setIsAutoActive] = useState(false);
@@ -66,8 +66,10 @@ export const useBet = (user: UserData | null) => {
 
   useEffect(() => {
     if (phase !== 'idle') return;
-    const { maxAmount: max, form: f } = latest.current;
-    if (max > 0 && f.amount > max) f.setAmount(max);
+    const { maxAmount: max, form: f, user: u } = latest.current;
+    if (u === null) return;
+    if (max === 0) f.setAmount(0);
+    else if (f.amount > max) f.setAmount(max);
   }, [phase]);
 
   const runAutoBetLoop = useCallback(
