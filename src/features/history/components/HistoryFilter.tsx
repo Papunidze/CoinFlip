@@ -1,9 +1,10 @@
+import { FilterTypeEnum } from '../hooks/useBetHistory';
 import type { FilterType } from '../hooks/useBetHistory';
 
 const TABS: { label: string; value: FilterType }[] = [
-  { label: 'All', value: 'all' },
-  { label: 'Wins', value: 'win' },
-  { label: 'Losses', value: 'loss' },
+  { label: 'All', value: FilterTypeEnum.ALL },
+  { label: 'Wins', value: FilterTypeEnum.WIN },
+  { label: 'Losses', value: FilterTypeEnum.LOSS },
 ];
 
 interface HistoryFilterProps {

@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { type Balance } from '@shared/types';
 import { storage } from '@api/storage';
 import { CurrencyEnum } from '@shared/types/coin';
-import { useCreateUser, useGetUser } from '@features/auth/data-accses/action';
+import { useCreateUser, useGetUser } from '@features/auth/data-access/action';
 import { EMPTY_STATS } from '@features/statistics';
 import { useQueryClient } from '@tanstack/react-query';
 

@@ -35,12 +35,21 @@ export const AmountControls = ({
       onSet(maxAmount);
       return;
     }
-    if (action.type === 'set') {
-      onSet(Math.min(action.value, maxAmount));
-    } else if (action.type === 'adjust') {
-      onSet(Math.min(amount * action.value, maxAmount));
-    } else if (action.type === 'add') {
-      onSet(Math.min(amount + action.value, maxAmount));
+    if (action.label === 'MAX') {
+      onSet(maxAmount);
+      return;
+    }
+
+    switch (action.type) {
+      case 'set':
+        onSet(Math.min(action.value, maxAmount));
+        break;
+      case 'adjust':
+        onSet(Math.min(amount * action.value, maxAmount));
+        break;
+      case 'add':
+        onSet(Math.min(amount + action.value, maxAmount));
+        break;
     }
   };
 

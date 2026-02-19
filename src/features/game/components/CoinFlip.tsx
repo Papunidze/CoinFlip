@@ -5,6 +5,7 @@ import CoinSpin from './CoinSpin';
 import CurrencyCoin from './CurrencyCoin';
 import './_game-module.scss';
 import { AnimationPresets } from '../model/animation';
+import { AnimationPhaseEnum, CoinSideEnum } from '@shared/types/coin';
 
 interface CoinFlipProps {
   phase: AnimationPhase;
@@ -14,29 +15,39 @@ interface CoinFlipProps {
   currency: Currency;
 }
 
-const CoinFlip = ({ phase, result, hasWon, selectedSide, currency }: CoinFlipProps) => {
+const CoinFlip = ({
+  phase,
+  result,
+  hasWon,
+  selectedSide,
+  currency,
+}: CoinFlipProps) => {
   return (
     <div className="coin-flip-page">
       <div className="coin-flip-panel">
         <div className="coin-flip-panel__body">
           <div className="coin-flip-panel__animation">
             <AnimatePresence mode="wait">
-              {phase === 'spinning' ? (
+              {phase === AnimationPhaseEnum.SPINNING ? (
                 <motion.div
                   key="spin"
                   className="coin-flip-panel__scene"
                   {...AnimationPresets.COIN_SPIN}
                 >
-                  <CoinSpin result={result || 'heads'} currency={currency} />
+                  <CoinSpin result={result || CoinSideEnum.HEADS} currency={currency} />
                 </motion.div>
               ) : (
                 <motion.div
                   key="coin"
-                  className={`coin-flip-panel__scene ${phase === 'idle' ? 'coin-flip-panel__scene--idle' : ''}`}
+                  className={`coin-flip-panel__scene ${phase === AnimationPhaseEnum.IDLE ? 'coin-flip-panel__scene--idle' : ''}`}
                   {...AnimationPresets.COIN_IDLE}
                 >
                   <CurrencyCoin
-                    side={phase === 'idle' ? selectedSide : result || 'heads'}
+                    side={
+                      phase === AnimationPhaseEnum.IDLE
+                        ? selectedSide
+                        : result || CoinSideEnum.HEADS
+                    }
                     currency={currency}
                   />
                 </motion.div>
@@ -45,7 +56,7 @@ const CoinFlip = ({ phase, result, hasWon, selectedSide, currency }: CoinFlipPro
           </div>
 
           <AnimatePresence>
-            {phase === 'result' && hasWon !== null && (
+            {phase === AnimationPhaseEnum.RESULT && hasWon !== null && (
               <motion.div
                 className="coin-flip-panel__result"
                 {...AnimationPresets.RESULT_APPEAR}

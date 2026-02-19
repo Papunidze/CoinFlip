@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { SideSelector } from './SideSelector';
 import { CurrencyTabs } from './CurrencyTabs';
 import { AmountControls } from './AmountControls';
@@ -31,6 +32,7 @@ const BetController = ({
   selectedSide,
 }: BetControllerProps) => {
   const controlsDisabled = disabled || isAutoActive;
+  const handleBet = useCallback(() => onBet(selectedSide), [onBet, selectedSide]);
 
   return (
     <div className="bet-controller">
@@ -61,7 +63,7 @@ const BetController = ({
           stopWin={form.stopWin}
           onStopWinChange={form.setStopWin}
           isMartingale={form.isMartingale}
-          onMartinagale={form.setIsMartingale}
+          onMartingale={form.setIsMartingale}
           stopLoss={form.stopLoss}
           onStopLossChange={form.setStopLoss}
           disabled={controlsDisabled}
@@ -69,7 +71,7 @@ const BetController = ({
       </div>
 
       <BetButton
-        onBet={() => onBet(selectedSide)}
+        onBet={handleBet}
         amount={form.amount}
         currency={form.currency}
         isAuto={form.isAuto}

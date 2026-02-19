@@ -1,5 +1,5 @@
 import type { Currency, UserData } from '@shared/types';
-import UserInfo from './UserInfo';
+import { UserInfo } from './UserInfo';
 import './_header-module.scss';
 
 interface HeaderProps {
@@ -9,7 +9,12 @@ interface HeaderProps {
   onCurrencyChange: (c: Currency) => void;
 }
 
-const Header = ({ user, onProfileClick, selectedCurrency, onCurrencyChange }: HeaderProps) => {
+const Header = ({
+  user,
+  onProfileClick,
+  selectedCurrency,
+  onCurrencyChange,
+}: HeaderProps) => {
   return (
     <header className="topbar">
       <div className="topbar__inner">

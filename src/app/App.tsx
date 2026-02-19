@@ -10,9 +10,10 @@ import { AuthPopup, useAuth } from '@features/auth';
 import { useBetSimulation } from '@features/betting/hooks/useBetSimulation';
 
 import './App.scss';
+import { AnimationPhaseEnum, CoinSideEnum } from '@shared/types/coin';
 
 const App = () => {
-  const [selectedSide, setSelectedSide] = useState<CoinSide>('heads');
+  const [selectedSide, setSelectedSide] = useState<CoinSide>(CoinSideEnum.HEADS);
   const {
     user,
     isLoading,
@@ -23,8 +24,16 @@ const App = () => {
     closePopup,
     isPending,
   } = useAuth();
-  const { phase, result, hasWon, placeBet, isAutoActive, nextBetAmount, form, maxAmount } =
-    useBetSimulation(user);
+  const {
+    phase,
+    result,
+    hasWon,
+    placeBet,
+    isAutoActive,
+    nextBetAmount,
+    form,
+    maxAmount,
+  } = useBetSimulation(user);
 
   if (isLoading) return <LoadingPage />;
 
@@ -50,7 +59,7 @@ const App = () => {
           />
           <BetController
             onBet={placeBet}
-            disabled={phase !== 'idle'}
+            disabled={phase !== AnimationPhaseEnum.IDLE}
             isAutoActive={isAutoActive}
             nextBetAmount={nextBetAmount}
             form={form}

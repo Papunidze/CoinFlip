@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useScrollLock } from '@shared/hooks/useScrollLock';
 import './_auth-module.scss';
 
@@ -28,14 +28,20 @@ const AuthPopup = ({
     if (!isAuth) inputRef.current?.focus();
   }, [isAuth]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(name);
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      onSubmit(name);
+    },
+    [name, onSubmit],
+  );
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) onClose();
-  };
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.target === e.currentTarget) onClose();
+    },
+    [onClose],
+  );
 
   return (
     <div className="auth-overlay" onClick={handleOverlayClick}>
@@ -68,8 +74,9 @@ const AuthPopup = ({
           <form onSubmit={handleSubmit}>
             <div className="auth-popup__body">
               <div className="auth-popup__field">
-                <label className="auth-popup__label">Username</label>
+                <label htmlFor="username-input" className="auth-popup__label">Username</label>
                 <input
+                  id="username-input"
                   ref={inputRef}
                   className="auth-popup__input"
                   type="text"
@@ -77,7 +84,6 @@ const AuthPopup = ({
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name..."
                   maxLength={20}
-                  aria-label="Username"
                 />
               </div>
               <button

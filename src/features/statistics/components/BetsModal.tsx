@@ -1,21 +1,15 @@
 import { useMemo } from 'react';
-import { useGetHistory } from '@features/history/data-accses/action';
+import { useGetHistory } from '@features/history/data-access/action';
 import type { History } from '@shared/types';
 import { useScrollLock } from '@shared/hooks/useScrollLock';
+import { formatTime } from '@shared/hooks/useFormatTime';
+import { BetResultTypeEnum } from '../model/stats-config';
+import type { BetResultType } from '../model/stats-config';
 
 interface BetsModalProps {
-  type: 'win' | 'loss';
+  type: BetResultType;
   onClose: () => void;
 }
-
-const formatTime = (iso: string): string => {
-  const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
-  if (mins < 1) return 'now';
-  if (mins < 60) return `${mins}m`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h`;
-  return `${Math.floor(hours / 24)}d`;
-};
 
 const BetsModal = ({ type, onClose }: BetsModalProps) => {
   const { data } = useGetHistory();
@@ -23,10 +17,14 @@ const BetsModal = ({ type, onClose }: BetsModalProps) => {
 
   const sorted = useMemo<History[]>(() => {
     if (!data) return [];
-    if (type === 'win') {
-      return [...data].filter((b) => b.isWin).sort((a, b) => b.payout - a.payout);
+    if (type === BetResultTypeEnum.WIN) {
+      return [...data]
+        .filter((b) => b.isWin)
+        .sort((a, b) => b.payout - a.payout);
     }
-    return [...data].filter((b) => !b.isWin).sort((a, b) => b.amount - a.amount);
+    return [...data]
+      .filter((b) => !b.isWin)
+      .sort((a, b) => b.amount - a.amount);
   }, [data, type]);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -38,7 +36,7 @@ const BetsModal = ({ type, onClose }: BetsModalProps) => {
       <div className="bets-modal">
         <div className="bets-modal__header">
           <span className="bets-modal__title">
-            {type === 'win' ? 'All Wins' : 'All Losses'}
+            {type === BetResultTypeEnum.WIN ? 'All Wins' : 'All Losses'}
           </span>
           <button
             type="button"
@@ -51,19 +49,29 @@ const BetsModal = ({ type, onClose }: BetsModalProps) => {
         </div>
         <div className="bets-modal__body">
           {sorted.length === 0 ? (
-            <div className="bets-modal__empty">No {type === 'win' ? 'wins' : 'losses'} yet</div>
+            <div className="bets-modal__empty">
+              No {type === BetResultTypeEnum.WIN ? 'wins' : 'losses'} yet
+            </div>
           ) : (
             <ul className="bets-modal__list">
               {sorted.map((bet) => (
                 <li key={bet.id} className="bets-modal__row">
-                  <span className="bets-modal__row-currency">{bet.currency}</span>
+                  <span className="bets-modal__row-currency">
+                    {bet.currency}
+                  </span>
                   <span className="bets-modal__row-amount">
-                    {type === 'win' ? `+${bet.payout.toFixed(2)}` : `-${bet.amount.toFixed(2)}`}
+                    {type === BetResultTypeEnum.WIN
+                      ? `+${bet.payout.toFixed(2)}`
+                      : `-${bet.amount.toFixed(2)}`}
                   </span>
-                  <span className={`bets-modal__row-badge bets-modal__row-badge--${type}`}>
-                    {type === 'win' ? 'WIN' : 'LOSS'}
+                  <span
+                    className={`bets-modal__row-badge bets-modal__row-badge--${type}`}
+                  >
+                    {type === BetResultTypeEnum.WIN ? 'WIN' : 'LOSS'}
                   </span>
-                  <span className="bets-modal__row-time">{formatTime(bet.timestamp)}</span>
+                  <span className="bets-modal__row-time">
+                    {formatTime(bet.timestamp)}
+                  </span>
                 </li>
               ))}
             </ul>

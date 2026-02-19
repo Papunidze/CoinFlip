@@ -13,7 +13,7 @@ interface Props {
   onStopLossChange: (val: number) => void;
   disabled: boolean;
   isMartingale: boolean;
-  onMartinagale: (val: boolean) => void;
+  onMartingale: (val: boolean) => void;
 }
 
 export const AutoBetConfig = ({
@@ -24,7 +24,7 @@ export const AutoBetConfig = ({
   stopLoss,
   onStopLossChange,
   disabled,
-  onMartinagale,
+  onMartingale,
   isMartingale,
 }: Props) => {
   const [stopWinStr, setStopWinStr] = useState(
@@ -56,7 +56,7 @@ export const AutoBetConfig = ({
             <span className="bet-controller__label">Martingale</span>
             <button
               className={`bet-controller__toggle ${isMartingale ? 'bet-controller__toggle--active' : ''}`}
-              onClick={() => onMartinagale(!isMartingale)}
+              onClick={() => onMartingale(!isMartingale)}
               disabled={disabled}
               role="switch"
               aria-checked={isEnabled}

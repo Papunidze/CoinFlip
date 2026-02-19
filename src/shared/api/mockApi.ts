@@ -1,6 +1,7 @@
 import type { UserData, Currency, History } from '@shared/types';
-import { v4 as uuidv4 } from 'uuid';
+
 import { storage } from './storage';
+import { useUuid } from '@shared/hooks/useUuid';
 
 export const mockApi = {
   createUser: async (userData: UserData): Promise<void> => {
@@ -29,7 +30,7 @@ export const mockApi = {
       setTimeout(() => {
         const isWin = Math.random() >= 0.5;
         const result: History = {
-          id: uuidv4(),
+          id: useUuid(),
           isWin,
           payout: isWin ? betAmount * 2 : 0,
           amount: betAmount,

@@ -1,5 +1,8 @@
+import type { CoinSide } from '@shared/types';
+import { CoinSideEnum } from '@shared/types/coin';
+
 interface BitcoinCoinProps {
-  side: 'heads' | 'tails';
+  side: CoinSide;
 }
 
 const CoinBase = ({
@@ -91,7 +94,7 @@ const BitcoinCoin = ({ side }: BitcoinCoinProps) => {
       className="bitcoin-coin"
     >
       <CoinBase id={id}>
-        {side === 'heads' ? <HeadsFace /> : <TailsFace />}
+        {side === CoinSideEnum.HEADS ? <HeadsFace /> : <TailsFace />}
       </CoinBase>
     </svg>
   );

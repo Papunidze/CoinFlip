@@ -13,7 +13,7 @@ interface UserInfoProps {
   onCurrencyChange: (c: Currency) => void;
 }
 
-const UserInfo = ({
+export const UserInfo = ({
   user,
   onProfileClick,
   selectedCurrency,
@@ -64,42 +64,43 @@ const UserInfo = ({
         <span className="topbar__username">{user.name}</span>
       </button>
 
-      {isCurrencyOpen && createPortal(
-        <div
-          className="topbar__currency-overlay"
-          onClick={() => setIsCurrencyOpen(false)}
-        >
+      {isCurrencyOpen &&
+        createPortal(
           <div
-            className="topbar__currency-popup"
-            onClick={(e) => e.stopPropagation()}
+            className="topbar__currency-overlay"
+            onClick={() => setIsCurrencyOpen(false)}
           >
-            {CURRENCIES.map((currency) => (
-              <button
-                key={currency}
-                type="button"
-                className={`topbar__currency-option${selectedCurrency === currency ? ' topbar__currency-option--active' : ''}`}
-                onClick={() => {
-                  onCurrencyChange(currency);
-                  setIsCurrencyOpen(false);
-                }}
-              >
-                <img
-                  src={`/icons/${currency.toLowerCase()}.svg`}
-                  alt={currency}
-                  className="topbar__balance-icon"
-                />
-                <span className="topbar__currency-option-name">{currency}</span>
-                <span className="topbar__currency-option-amount">
-                  {user.balances[currency].toFixed(2)}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>,
-        document.body
-      )}
+            <div
+              className="topbar__currency-popup"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {CURRENCIES.map((currency) => (
+                <button
+                  key={currency}
+                  type="button"
+                  className={`topbar__currency-option${selectedCurrency === currency ? ' topbar__currency-option--active' : ''}`}
+                  onClick={() => {
+                    onCurrencyChange(currency);
+                    setIsCurrencyOpen(false);
+                  }}
+                >
+                  <img
+                    src={`/icons/${currency.toLowerCase()}.svg`}
+                    alt={currency}
+                    className="topbar__balance-icon"
+                  />
+                  <span className="topbar__currency-option-name">
+                    {currency}
+                  </span>
+                  <span className="topbar__currency-option-amount">
+                    {user.balances[currency].toFixed(2)}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 };
-
-export default UserInfo;

@@ -1,38 +1,58 @@
 import type { BetStats } from '@shared/types';
 
-type ValueVariant = 'win' | 'lose' | 'neutral' | 'dynamic';
+export const ValueVariantEnum = {
+  WIN: 'win',
+  LOSE: 'lose',
+  NEUTRAL: 'neutral',
+  DYNAMIC: 'dynamic',
+} as const;
+
+export const StatFormatEnum = {
+  RATIO: 'ratio',
+  CURRENCY: 'currency',
+  NUMBER: 'number',
+} as const;
+
+export const BetResultTypeEnum = {
+  WIN: 'win',
+  LOSS: 'loss',
+} as const;
+
+type ValueVariant = (typeof ValueVariantEnum)[keyof typeof ValueVariantEnum];
+export type StatFormat = (typeof StatFormatEnum)[keyof typeof StatFormatEnum];
+export type BetResultType = (typeof BetResultTypeEnum)[keyof typeof BetResultTypeEnum];
 
 export interface StatItem {
   key: keyof BetStats;
   label: string;
   variant: ValueVariant;
-  format: 'ratio' | 'currency' | 'number';
+  format: StatFormat;
 }
 
 export const STAT_ITEMS: StatItem[] = [
-  { key: 'wins', label: 'Win / Loss', variant: 'dynamic', format: 'ratio' },
+  { key: 'wins', label: 'Win / Loss', variant: ValueVariantEnum.DYNAMIC, format: StatFormatEnum.RATIO },
   {
     key: 'biggestWin',
     label: 'Biggest Win',
-    variant: 'win',
-    format: 'currency',
+    variant: ValueVariantEnum.WIN,
+    format: StatFormatEnum.CURRENCY,
   },
   {
     key: 'biggestLoss',
     label: 'Biggest Loss',
-    variant: 'lose',
-    format: 'currency',
+    variant: ValueVariantEnum.LOSE,
+    format: StatFormatEnum.CURRENCY,
   },
   {
     key: 'currentProfit',
     label: 'Profit',
-    variant: 'dynamic',
-    format: 'currency',
+    variant: ValueVariantEnum.DYNAMIC,
+    format: StatFormatEnum.CURRENCY,
   },
   {
     key: 'totalBets',
     label: 'Total Bets',
-    variant: 'neutral',
-    format: 'number',
+    variant: ValueVariantEnum.NEUTRAL,
+    format: StatFormatEnum.NUMBER,
   },
 ];

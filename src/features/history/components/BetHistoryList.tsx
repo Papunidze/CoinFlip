@@ -1,14 +1,6 @@
 import type { History } from '@shared/types';
 import { BetHistorySkeleton } from './BetHistorySkeleton';
-
-const formatTime = (iso: string): string => {
-  const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
-  if (mins < 1) return 'now';
-  if (mins < 60) return `${mins}m`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h`;
-  return `${Math.floor(hours / 24)}d`;
-};
+import { formatTime } from '@shared/hooks/useFormatTime';
 
 interface BetHistoryListProps {
   bets: History[];
@@ -34,7 +26,9 @@ export const BetHistoryList = ({ bets, isLoading }: BetHistoryListProps) => {
           <span className="bet-history__row-outcome">
             {bet.isWin ? 'WIN' : 'LOSS'}
           </span>
-          <span className="bet-history__row-time">{formatTime(bet.timestamp)}</span>
+          <span className="bet-history__row-time">
+            {formatTime(bet.timestamp)}
+          </span>
         </div>
       ))}
     </>

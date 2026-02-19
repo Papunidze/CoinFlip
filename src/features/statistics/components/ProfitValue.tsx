@@ -1,9 +1,11 @@
+import { ValueVariantEnum } from '../model/stats-config';
+
 interface ProfitValueProps {
   value: number;
 }
 
 export const ProfitValue = ({ value }: ProfitValueProps) => {
-  const variant = value > 0 ? 'win' : value < 0 ? 'lose' : 'neutral';
+  const variant = value > 0 ? ValueVariantEnum.WIN : value < 0 ? ValueVariantEnum.LOSE : ValueVariantEnum.NEUTRAL;
   const sign = value > 0 ? '+' : '';
 
   return (
