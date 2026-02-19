@@ -7,7 +7,7 @@ import { BetController } from '@features/betting';
 import { CoinFlip } from '@features/game';
 import { Statistics } from '@features/statistics';
 import { AuthPopup, useAuth } from '@features/auth';
-import { useBet } from '@features/betting/hooks/useBet';
+import { useBetSimulation } from '@features/betting/hooks/useBetSimulation';
 
 import './App.scss';
 
@@ -24,7 +24,7 @@ const App = () => {
     isPending,
   } = useAuth();
   const { phase, result, hasWon, placeBet, isAutoActive, form, maxAmount } =
-    useBet(user);
+    useBetSimulation(user);
 
   if (isLoading) return <LoadingPage />;
 

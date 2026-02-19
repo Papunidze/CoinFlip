@@ -4,7 +4,7 @@ import { useBetForm } from './useBetForm';
 import type { BetFormState } from './useBetForm';
 import type { CoinSide, History, UserData } from '@shared/types';
 
-export const useBet = (user: UserData | null) => {
+export const useBetSimulation = (user: UserData | null) => {
   const form = useBetForm();
 
   const maxAmount = user?.balances[form.currency] ?? 0;

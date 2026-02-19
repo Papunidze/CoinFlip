@@ -2,18 +2,56 @@
 @use 'mixins' as *;
 
 .bet-history {
-  width: 56px;
+  width: 220px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-xs);
+
+  &__filter {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  &__filter-tab {
+    flex: 1;
+    padding: 5px 4px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    color: var(--text-color-muted);
+    font-family: var(--font-family-base);
+    font-size: 10px;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &--active {
+      background: var(--glass-bg-active);
+      color: var(--text-color-light);
+      border-color: var(--glass-border-light);
+    }
+
+    &:hover:not(#{&}--active) {
+      background: var(--glass-bg-hover);
+      color: var(--text-color-secondary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--glow-accent-ring);
+      outline-offset: 2px;
+    }
+  }
 
   &__list {
     display: flex;
     flex-direction: column;
     gap: 3px;
     overflow-y: auto;
-    max-height: calc(100vh - var(--topbar-height) - var(--spacing-xl) * 2);
-    padding: var(--spacing-xs) 0;
+    max-height: calc(100vh - var(--topbar-height) - var(--spacing-xl) * 2 - 44px);
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
@@ -21,43 +59,35 @@
     }
   }
 
-  &__badge {
+  &__row {
     width: 100%;
-    padding: 6px 4px;
+    padding: 7px 8px;
     border-radius: var(--radius-sm);
-    font-family: var(--font-family-monospace);
-    font-size: 9px;
-    font-weight: var(--font-weight-bold);
-    text-align: center;
-    line-height: 1;
-    white-space: nowrap;
-    transition: all var(--transition-fast);
-    cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background var(--transition-fast);
 
     &--win {
       background: var(--glow-success-bg);
-      color: var(--variant-success);
       border: 1px solid var(--glow-success-border);
 
       &:hover {
         background: var(--glow-success-bg-hover);
-        box-shadow: 0 0 8px var(--glow-success-shadow);
       }
     }
 
     &--lose {
       background: var(--glow-danger-bg);
-      color: var(--variant-danger);
       border: 1px solid var(--glow-danger-border);
 
       &:hover {
         background: var(--glow-danger-bg-hover);
-        box-shadow: 0 0 8px var(--glow-danger-shadow);
       }
     }
 
     &--skeleton {
-      height: 27px;
+      height: 32px;
       border: 1px solid var(--glass-border);
       background: linear-gradient(
         90deg,
@@ -71,15 +101,79 @@
     }
   }
 
+  &__row-currency {
+    font-family: var(--font-family-monospace);
+    font-size: 9px;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-muted);
+    min-width: 26px;
+  }
+
+  &__row-amount {
+    font-family: var(--font-family-monospace);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    flex: 1;
+
+    .bet-history__row--win & {
+      color: var(--variant-success);
+    }
+
+    .bet-history__row--lose & {
+      color: var(--variant-danger);
+    }
+  }
+
+  &__row-outcome {
+    font-family: var(--font-family-heading);
+    font-size: 8px;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.06em;
+
+    .bet-history__row--win & {
+      color: var(--variant-success);
+    }
+
+    .bet-history__row--lose & {
+      color: var(--variant-danger);
+    }
+  }
+
+  &__row-time {
+    font-family: var(--font-family-monospace);
+    font-size: 9px;
+    color: var(--text-color-muted);
+    white-space: nowrap;
+    min-width: 26px;
+    text-align: right;
+  }
+
   @keyframes skeleton-shimmer {
-    0%   { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @include respond(lg) {
+    width: 180px;
   }
 
   @include respond(md) {
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
     order: -1;
+
+    &__filter {
+      gap: 4px;
+    }
+
+    &__filter-tab {
+      padding: 5px 8px;
+      font-size: 11px;
+    }
 
     &__list {
       flex-direction: row;
@@ -90,19 +184,37 @@
       gap: 4px;
     }
 
-    &__badge {
+    &__row {
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 80px;
       width: auto;
-      min-width: 44px;
-      padding: 5px 8px;
       flex-shrink: 0;
+      padding: 6px 8px;
+      gap: 2px;
+
+      &--skeleton {
+        min-width: 80px;
+        width: auto;
+        flex-shrink: 0;
+      }
+    }
+
+    &__row-time {
+      min-width: unset;
+      text-align: left;
     }
   }
 
   @include respond(sm) {
-    &__badge {
-      min-width: 38px;
+    &__filter-tab {
+      font-size: 10px;
       padding: 4px 6px;
-      font-size: 8px;
+    }
+
+    &__row {
+      min-width: 70px;
+      padding: 5px 7px;
     }
   }
 }
