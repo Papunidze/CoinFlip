@@ -5,7 +5,14 @@ interface ProfitValueProps {
 }
 
 export const ProfitValue = ({ value }: ProfitValueProps) => {
-  const variant = value > 0 ? ValueVariantEnum.WIN : value < 0 ? ValueVariantEnum.LOSE : ValueVariantEnum.NEUTRAL;
+  let variant: string;
+  if (value > 0) {
+    variant = ValueVariantEnum.WIN;
+  } else if (value < 0) {
+    variant = ValueVariantEnum.LOSE;
+  } else {
+    variant = ValueVariantEnum.NEUTRAL;
+  }
   const sign = value > 0 ? '+' : '';
 
   return (

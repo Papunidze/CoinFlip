@@ -56,11 +56,14 @@ export function useCoinFlip({
 
       invalidateAfterFlip();
 
-      const finalSide: CoinSide = betResult.isWin
-        ? choice
-        : choice === CoinSideEnum.HEADS
-          ? CoinSideEnum.TAILS
-          : CoinSideEnum.HEADS;
+      let finalSide: CoinSide;
+      if (betResult.isWin) {
+        finalSide = choice;
+      } else if (choice === CoinSideEnum.HEADS) {
+        finalSide = CoinSideEnum.TAILS;
+      } else {
+        finalSide = CoinSideEnum.HEADS;
+      }
 
       phaseRef.current = AnimationPhaseEnum.RESULT;
       setResult(finalSide);

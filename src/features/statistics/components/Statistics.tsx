@@ -33,7 +33,14 @@ const Statistics = ({ stats }: StatisticsProps) => {
     }
 
     if (format === StatFormatEnum.CURRENCY) {
-      const sign = variant === ValueVariantEnum.WIN ? '+' : variant === ValueVariantEnum.LOSE ? '-' : '';
+      let sign: string;
+      if (variant === ValueVariantEnum.WIN) {
+        sign = '+';
+      } else if (variant === ValueVariantEnum.LOSE) {
+        sign = '-';
+      } else {
+        sign = '';
+      }
       const display = value > 0 ? `${sign}${value.toFixed(2)}` : '—';
       return (
         <span className={`statistics__value statistics__value--${variant}`}>

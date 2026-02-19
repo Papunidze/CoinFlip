@@ -35,10 +35,6 @@ export const AmountControls = ({
       onSet(maxAmount);
       return;
     }
-    if (action.label === 'MAX') {
-      onSet(maxAmount);
-      return;
-    }
 
     switch (action.type) {
       case 'set':
