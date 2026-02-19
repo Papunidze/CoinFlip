@@ -76,7 +76,7 @@ export function useCoinFlip({
         timeouts.current.push(t2);
       });
     },
-    [clearTimeouts, onBetComplete, flipCoin],
+    [clearTimeouts, onBetComplete, flipCoin, invalidateAfterFlip],
   );
 
   useEffect(() => clearTimeouts, [clearTimeouts]);
