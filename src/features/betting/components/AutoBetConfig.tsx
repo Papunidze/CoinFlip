@@ -34,6 +34,9 @@ export const AutoBetConfig = ({
           className={`bet-controller__toggle ${isEnabled ? 'bet-controller__toggle--active' : ''}`}
           onClick={() => onToggle(!isEnabled)}
           disabled={disabled}
+          role="switch"
+          aria-checked={isEnabled}
+          aria-label="Toggle auto bet"
         >
           <span className="bet-controller__toggle-thumb" />
         </button>

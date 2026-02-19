@@ -4,6 +4,7 @@ import { storage } from '@api/storage';
 import { CurrencyEnum } from '@shared/types/coin';
 import { useCreateUser, useGetUser } from '@features/auth/data-accses/action';
 import { EMPTY_STATS } from '@features/statistics';
+import { useQueryClient } from '@tanstack/react-query';
 
 const defaultBalanceAmount = 1000;
 
@@ -13,6 +14,7 @@ const defaultBalance = Object.values(CurrencyEnum).reduce<Balance>(
 );
 
 export const useAuth = () => {
+  const queryClient = useQueryClient();
   const { data: user = null, isLoading } = useGetUser();
   const { mutate: createUser, isPending } = useCreateUser();
 
@@ -38,6 +40,12 @@ export const useAuth = () => {
     [createUser],
   );
 
+  const logout = useCallback(() => {
+    storage.clearUser();
+    queryClient.clear();
+    setIsPopupOpen(true);
+  }, [queryClient]);
+
   const openPopup = useCallback(() => setIsPopupOpen(true), []);
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
@@ -46,6 +54,7 @@ export const useAuth = () => {
     isLoading,
     isPopupOpen,
     login,
+    logout,
     isPending,
     openPopup,
     closePopup,

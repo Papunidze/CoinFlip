@@ -17,7 +17,7 @@ export const useCreateUser = () => {
       mockApi.createUser(userData),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.resetQueries({ queryKey: ['user'] });
     },
   });
 };

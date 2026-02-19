@@ -8,7 +8,10 @@
       "Bash(npx tsc:*)",
       "Bash(npm install:*)",
       "Bash(del \"C:\\\\Users\\\\Papunidze\\\\Desktop\\\\CoinFlip\\\\src\\\\app\\\\providers\\\\ToastProvider.tsx\")",
-      "Bash(del \"C:\\\\Users\\\\Papunidze\\\\Desktop\\\\CoinFlip\\\\src\\\\app\\\\providers\\\\_toast.scss\")"
+      "Bash(del \"C:\\\\Users\\\\Papunidze\\\\Desktop\\\\CoinFlip\\\\src\\\\app\\\\providers\\\\_toast.scss\")",
+      "Bash(npm uninstall:*)",
+      "Bash(npm test:*)",
+      "Bash(npx jest:*)"
     ]
   }
 }

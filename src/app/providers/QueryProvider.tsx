@@ -4,7 +4,7 @@ import {
   QueryCache,
   MutationCache,
 } from '@tanstack/react-query';
-import { useRef, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 interface QueryProviderProps {
@@ -15,26 +15,25 @@ const toMessage = (error: unknown): string =>
   error instanceof Error ? error.message : 'Something went wrong';
 
 export const QueryProvider = ({ children }: QueryProviderProps) => {
-  const queryClientRef = useRef<QueryClient>(
-    new QueryClient({
-      queryCache: new QueryCache({
-        onError: (error) => toast.error(toMessage(error)),
-      }),
-      mutationCache: new MutationCache({
-        onError: (error) => toast.error(toMessage(error)),
-      }),
-      defaultOptions: {
-        queries: {
-          staleTime: 1000 * 60,
-          retry: 1,
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        queryCache: new QueryCache({
+          onError: (error) => toast.error(toMessage(error)),
+        }),
+        mutationCache: new MutationCache({
+          onError: (error) => toast.error(toMessage(error)),
+        }),
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60,
+            retry: 1,
+          },
         },
-      },
-    }),
+      }),
   );
 
   return (
-    <QueryClientProvider client={queryClientRef.current}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };

@@ -51,6 +51,7 @@ export const AmountControls = ({
             className="bet-controller__adjust-btn"
             onClick={() => handleClick(STEP_BUTTONS[0])}
             disabled={disabled}
+            aria-label="Decrease bet amount"
           >
             {STEP_BUTTONS[0].label}
           </button>
@@ -58,6 +59,7 @@ export const AmountControls = ({
             className="bet-controller__input"
             type="number"
             value={inputValue}
+            aria-label="Bet amount"
             onFocus={(e) => {
               setIsEditing(true);
               setEditValue(amount > 0 ? amount.toFixed(2) : '');
@@ -80,6 +82,7 @@ export const AmountControls = ({
             className="bet-controller__adjust-btn"
             onClick={() => handleClick(STEP_BUTTONS[1])}
             disabled={disabled}
+            aria-label="Increase bet amount"
           >
             {STEP_BUTTONS[1].label}
           </button>

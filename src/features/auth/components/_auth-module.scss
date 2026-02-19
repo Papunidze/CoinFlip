@@ -158,6 +158,36 @@
     }
   }
 
+  &__profile-name {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-color-light);
+    text-align: center;
+    padding: var(--spacing-sm) 0;
+  }
+
+  &__logout {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--glow-danger-border);
+    border-radius: var(--radius-md);
+    background: var(--glow-danger-bg);
+    color: var(--variant-danger);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background: var(--glow-danger-bg-hover);
+      border-color: var(--glow-danger-border-hover);
+    }
+  }
+
   @include respond(sm) {
     &__header {
       padding: var(--spacing-md) var(--spacing-lg);

@@ -1,6 +1,7 @@
 import type { Currency } from '@shared/types';
+import { CurrencyEnum } from '@shared/types/coin';
 
-const CURRENCIES: Currency[] = ['BTC', 'ETH', 'SOL'];
+const CURRENCIES = Object.values(CurrencyEnum);
 
 interface Props {
   selected: Currency;

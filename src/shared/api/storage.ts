@@ -56,4 +56,8 @@ export const storage = {
     const userData = requireUser();
     storage.saveUser({ ...userData, statistic: stats });
   },
+
+  clearUser: (): void => {
+    localStorage.removeItem(STORAGE_KEYS.USER);
+  },
 };

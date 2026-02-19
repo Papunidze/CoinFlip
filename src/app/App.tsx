@@ -18,6 +18,7 @@ const App = () => {
     isLoading,
     isPopupOpen,
     login,
+    logout,
     openPopup,
     closePopup,
     isPending,
@@ -31,7 +32,7 @@ const App = () => {
     <>
       {user !== null && <Header user={user} onProfileClick={openPopup} />}
       <div className="game-layout">
-        <BetHistory />
+        {user && <BetHistory />}
         <main className="game-layout__main">
           <CoinFlip
             phase={phase}
@@ -56,7 +57,9 @@ const App = () => {
         <AuthPopup
           onSubmit={login}
           onClose={closePopup}
+          onLogout={logout}
           isAuth={user !== null}
+          userName={user?.name}
           isLoading={isPending}
         />
       )}

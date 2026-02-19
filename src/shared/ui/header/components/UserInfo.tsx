@@ -16,9 +16,7 @@ const UserInfo = ({ user, onProfileClick }: UserInfoProps) => {
               alt={currency}
               className="topbar__balance-icon"
             />
-            <span className="topbar__balance-value">
-              {amount.toLocaleString()}
-            </span>
+            <span className="topbar__balance-value">{amount.toFixed(2)}</span>
           </div>
         ))}
       </div>
