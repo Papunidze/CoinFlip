@@ -5,27 +5,18 @@ import { BetHistory } from '@features/history';
 import { BetController } from '@features/betting';
 import { CoinFlip } from '@features/game';
 import { Statistics, EMPTY_STATS } from '@features/statistics';
-import { AuthPopup } from '@features/auth';
+import { AuthPopup, useAuth } from '@features/auth';
 import { useBet } from '@features/betting/hooks/useBet';
 
 import './App.scss';
 
 const App = () => {
   const [selectedSide, setSelectedSide] = useState<CoinSide>('heads');
-  const {
-    user,
-    phase,
-    result,
-    hasWon,
-    placeBet,
-    isAutoActive,
-    form,
-    maxAmount,
-    isPopupOpen,
-    login,
-    openPopup,
-    closePopup,
-  } = useBet();
+  const { user, isPopupOpen, login, openPopup, closePopup, isPending } =
+    useAuth();
+
+  const { phase, result, hasWon, placeBet, isAutoActive, form, maxAmount } =
+    useBet(user);
 
   return (
     <>
@@ -57,6 +48,7 @@ const App = () => {
           onSubmit={login}
           onClose={closePopup}
           isAuth={user !== null}
+          isLoading={isPending}
         />
       )}
     </>

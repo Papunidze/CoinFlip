@@ -1,18 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useAuth } from '@features/auth';
 import { useCoinFlip } from '@features/game/hooks/useCoinFlip';
 import { useBetForm } from './useBetForm';
 import type { BetFormState } from './useBetForm';
-import type { CoinSide, History } from '@shared/types';
+import type { CoinSide, History, UserData } from '@shared/types';
 
-export const useBet = () => {
-  const { user, updateBalance, isPopupOpen, login, openPopup, closePopup } =
-    useAuth();
-
+export const useBet = (user: UserData | null) => {
   const form = useBetForm();
 
   const maxAmount = user?.balances[form.currency] ?? 0;
-
   const cap = maxAmount > 0 ? maxAmount : Infinity;
 
   const clampedForm: BetFormState = {
@@ -29,22 +24,15 @@ export const useBet = () => {
       ),
   };
 
-  const isAutoRunning = useRef(false);
-  const sessionProfit = useRef(0);
-
-  const formRef = useRef(form);
-  const userRef = useRef(user);
-  const maxAmountRef = useRef(maxAmount);
-  const updateBalanceRef = useRef(updateBalance);
+  const latest = useRef({ form, maxAmount });
 
   useEffect(() => {
-    formRef.current = form;
-    userRef.current = user;
-    maxAmountRef.current = maxAmount;
-    updateBalanceRef.current = updateBalance;
+    latest.current = { form, maxAmount };
   });
 
   const [isAutoActive, setIsAutoActive] = useState(false);
+  const isAutoRunning = useRef(false);
+  const sessionProfit = useRef(0);
 
   const stopAutoBet = useCallback(() => {
     isAutoRunning.current = false;
@@ -54,10 +42,6 @@ export const useBet = () => {
 
   const onBetComplete = useCallback(
     (betResult: History) => {
-      if (betResult.isWin) {
-        updateBalanceRef.current(betResult.payout, betResult.currency);
-      }
-
       if (!isAutoRunning.current) return;
 
       const net = betResult.isWin
@@ -65,52 +49,40 @@ export const useBet = () => {
         : -betResult.amount;
       sessionProfit.current += net;
 
-      const stopWin = formRef.current.stopWin || 0;
-      const stopLoss = formRef.current.stopLoss || 0;
-
-      if (stopWin > 0 && sessionProfit.current >= stopWin) {
+      const { stopWin = 0, stopLoss = 0 } = latest.current.form;
+      if (stopWin > 0 && sessionProfit.current >= stopWin) stopAutoBet();
+      else if (stopLoss > 0 && sessionProfit.current <= -stopLoss)
         stopAutoBet();
-      } else if (stopLoss > 0 && sessionProfit.current <= -stopLoss) {
-        stopAutoBet();
-      }
     },
     [stopAutoBet],
   );
 
   const { phase, result, hasWon, flip } = useCoinFlip({ onBetComplete });
 
-  useEffect(() => {
-    if (phase === 'idle') {
-      const currentMax = maxAmountRef.current;
-      if (currentMax > 0 && formRef.current.amount > currentMax) {
-        formRef.current.setAmount(currentMax);
-      }
-    }
-  }, [phase]);
-
   const flipRef = useRef(flip);
-
   useEffect(() => {
     flipRef.current = flip;
   });
 
+  useEffect(() => {
+    if (phase !== 'idle') return;
+    const { maxAmount: max, form: f } = latest.current;
+    if (max > 0 && f.amount > max) f.setAmount(max);
+  }, [phase]);
+
   const runAutoBetLoop = useCallback(
     async (side: CoinSide) => {
       while (isAutoRunning.current) {
-        const { amount, currency } = formRef.current;
-        const balance = userRef.current?.balances[currency] ?? 0;
-
-        if (balance < amount) {
+        const { amount, currency } = latest.current.form;
+        if (latest.current.maxAmount < amount) {
           stopAutoBet();
           break;
         }
 
-        updateBalanceRef.current(-amount, currency);
         await flipRef.current(side, amount, currency);
 
         if (!isAutoRunning.current) break;
-
-        await new Promise<void>((resolve) => setTimeout(resolve, 300));
+        await new Promise<void>((r) => setTimeout(r, 300));
       }
     },
     [stopAutoBet],
@@ -118,7 +90,7 @@ export const useBet = () => {
 
   const placeBet = useCallback(
     (side: CoinSide) => {
-      const { amount, currency, isAuto } = formRef.current;
+      const { amount, currency, isAuto } = latest.current.form;
 
       if (isAuto) {
         if (isAutoRunning.current) {
@@ -130,7 +102,6 @@ export const useBet = () => {
         setIsAutoActive(true);
         runAutoBetLoop(side);
       } else {
-        updateBalanceRef.current(-amount, currency);
         flipRef.current(side, amount, currency);
       }
     },
@@ -146,9 +117,5 @@ export const useBet = () => {
     isAutoActive,
     form: clampedForm,
     maxAmount,
-    isPopupOpen,
-    login,
-    openPopup,
-    closePopup,
   };
 };

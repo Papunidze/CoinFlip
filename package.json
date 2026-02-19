@@ -13,10 +13,11 @@
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:strict": "eslint \"**/*.{js,jsx,ts,tsx",
+    "lint:strict": "eslint \"**/*.{js,jsx,ts,tsx}",
     "prettier": "prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.21",
     "firebase": "^12.9.0",
     "framer-motion": "^12.34.0",
     "husky": "^9.1.7",

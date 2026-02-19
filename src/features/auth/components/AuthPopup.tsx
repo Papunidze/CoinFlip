@@ -5,9 +5,15 @@ interface AuthPopupProps {
   isAuth: boolean;
   onSubmit: (name: string) => void;
   onClose: () => void;
+  isLoading: boolean;
 }
 
-const AuthPopup = ({ onSubmit, onClose, isAuth }: AuthPopupProps) => {
+const AuthPopup = ({
+  onSubmit,
+  onClose,
+  isAuth,
+  isLoading,
+}: AuthPopupProps) => {
   const [name, setName] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -56,9 +62,9 @@ const AuthPopup = ({ onSubmit, onClose, isAuth }: AuthPopupProps) => {
           <button
             type="submit"
             className="auth-popup__submit"
-            disabled={!name.trim()}
+            disabled={!name.trim() || isLoading}
           >
-            Confirm
+            {isLoading ? 'Loading...' : 'Confirm'}
           </button>
         </div>
       </form>

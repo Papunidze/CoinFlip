@@ -2,6 +2,14 @@ import type { UserData, Currency, History } from '@shared/types';
 import { storage } from './storage';
 
 export const mockApi = {
+  createUser: async (userData: UserData): Promise<void> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(storage.saveUser(userData));
+      }, 500);
+    });
+  },
+
   getUserData: async (): Promise<UserData> => {
     return new Promise((resolve) => {
       setTimeout(() => {
