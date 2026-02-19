@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useScrollLock } from '@shared/hooks/useScrollLock';
 import './_auth-module.scss';
 
 interface AuthPopupProps {
@@ -20,6 +21,8 @@ const AuthPopup = ({
 }: AuthPopupProps) => {
   const [name, setName] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useScrollLock(true);
 
   useEffect(() => {
     if (!isAuth) inputRef.current?.focus();

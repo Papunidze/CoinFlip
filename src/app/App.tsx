@@ -30,7 +30,14 @@ const App = () => {
 
   return (
     <>
-      {user !== null && <Header user={user} onProfileClick={openPopup} />}
+      {user !== null && (
+        <Header
+          user={user}
+          onProfileClick={openPopup}
+          selectedCurrency={form.currency}
+          onCurrencyChange={form.setCurrency}
+        />
+      )}
       <div className="game-layout">
         {user && <BetHistory />}
         <main className="game-layout__main">

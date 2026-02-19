@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useGetHistory } from '@features/history/data-accses/action';
 import type { History } from '@shared/types';
+import { useScrollLock } from '@shared/hooks/useScrollLock';
 
 interface BetsModalProps {
   type: 'win' | 'loss';
@@ -18,6 +19,7 @@ const formatTime = (iso: string): string => {
 
 const BetsModal = ({ type, onClose }: BetsModalProps) => {
   const { data } = useGetHistory();
+  useScrollLock(true);
 
   const sorted = useMemo<History[]>(() => {
     if (!data) return [];

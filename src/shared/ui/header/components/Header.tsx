@@ -1,13 +1,15 @@
-import type { UserData } from '@shared/types';
+import type { Currency, UserData } from '@shared/types';
 import UserInfo from './UserInfo';
 import './_header-module.scss';
 
 interface HeaderProps {
   user: UserData;
   onProfileClick: () => void;
+  selectedCurrency: Currency;
+  onCurrencyChange: (c: Currency) => void;
 }
 
-const Header = ({ user, onProfileClick }: HeaderProps) => {
+const Header = ({ user, onProfileClick, selectedCurrency, onCurrencyChange }: HeaderProps) => {
   return (
     <header className="topbar">
       <div className="topbar__inner">
@@ -19,7 +21,12 @@ const Header = ({ user, onProfileClick }: HeaderProps) => {
           />
           <span className="topbar__logo-text">CoinFlip</span>
         </div>
-        <UserInfo user={user} onProfileClick={onProfileClick} />
+        <UserInfo
+          user={user}
+          onProfileClick={onProfileClick}
+          selectedCurrency={selectedCurrency}
+          onCurrencyChange={onCurrencyChange}
+        />
       </div>
     </header>
   );

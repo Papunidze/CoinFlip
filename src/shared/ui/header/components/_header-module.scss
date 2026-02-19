@@ -76,6 +76,93 @@
       background: var(--glass-bg-hover);
       border-color: var(--glass-border-hover);
     }
+
+    &--mobile {
+      display: none;
+      cursor: pointer;
+    }
+  }
+
+  &__balance-chevron {
+    font-size: 10px;
+    color: var(--text-color-muted);
+    margin-left: 2px;
+    line-height: 1;
+  }
+
+  &__currency-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-index-modal);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  &__currency-popup {
+    position: absolute;
+    top: calc(var(--topbar-height) - 4px);
+    right: var(--spacing-sm);
+    background: var(--gradient-panel);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    min-width: 200px;
+    animation: authSlideUp 0.2s ease-out;
+  }
+
+  &__currency-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: 12px var(--spacing-lg);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: var(--spacing-lg);
+      right: var(--spacing-lg);
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+
+    &:hover {
+      background: var(--glass-bg-hover);
+    }
+
+    &--active {
+      background: var(--glass-bg-active);
+
+      .topbar__currency-option-name {
+        color: var(--text-color-accent);
+      }
+    }
+  }
+
+  &__currency-option-name {
+    font-family: var(--font-family-monospace);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-secondary);
+    flex: 1;
+    text-align: left;
+  }
+
+  &__currency-option-amount {
+    font-family: var(--font-family-monospace);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-primary);
   }
 
   &__balance-icon {
@@ -197,14 +284,23 @@
       display: none;
     }
 
-    &__balance-icon {
-      width: 12px;
-      height: 12px;
+    &__balance--desktop {
+      display: none;
     }
 
-    &__balance {
-      padding: 3px 6px;
-      gap: 3px;
+    &__balance--mobile {
+      display: flex;
+      padding: 3px 8px;
+      gap: 4px;
+    }
+
+    &__balance-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    &__currency-popup {
+      top: 44px;
     }
   }
 }
