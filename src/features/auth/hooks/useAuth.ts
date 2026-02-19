@@ -3,6 +3,7 @@ import { type Balance } from '@shared/types';
 import { storage } from '@api/storage';
 import { CurrencyEnum } from '@shared/types/coin';
 import { useCreateUser, useGetUser } from '@features/auth/data-accses/action';
+import { EMPTY_STATS } from '@features/statistics';
 
 const defaultBalanceAmount = 1000;
 
@@ -23,7 +24,12 @@ export const useAuth = () => {
       if (trimmed) {
         createUser(
           {
-            userData: { name: trimmed, balances: defaultBalance, history: [] },
+            userData: {
+              name: trimmed,
+              balances: defaultBalance,
+              history: [],
+              statistic: EMPTY_STATS,
+            },
           },
           { onSuccess: () => setIsPopupOpen(false) },
         );
@@ -35,5 +41,13 @@ export const useAuth = () => {
   const openPopup = useCallback(() => setIsPopupOpen(true), []);
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
-  return { user, isLoading, isPopupOpen, login, isPending, openPopup, closePopup };
+  return {
+    user,
+    isLoading,
+    isPopupOpen,
+    login,
+    isPending,
+    openPopup,
+    closePopup,
+  };
 };

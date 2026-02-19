@@ -31,8 +31,18 @@ export interface History {
   timestamp: string;
 }
 
+export interface BetStats {
+  totalBets: number;
+  wins: number;
+  losses: number;
+  biggestWin: number;
+  biggestLoss: number;
+  currentProfit: number;
+}
+
 export interface UserData {
   name: string;
   balances: Balance;
   history: History[];
+  statistic: BetStats;
 }

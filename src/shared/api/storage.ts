@@ -1,4 +1,10 @@
-import type { UserData, Currency, Balance, History } from '@shared/types';
+import type {
+  UserData,
+  Currency,
+  Balance,
+  History,
+  BetStats,
+} from '@shared/types';
 
 const STORAGE_KEYS = {
   USER: 'user',
@@ -46,5 +52,10 @@ export const storage = {
     storage.saveBalance(updatedBalance);
 
     return storage.getUser();
+  },
+
+  updateStatistic: (stats: BetStats): void => {
+    const userData = storage.getUser();
+    storage.saveUser({ ...userData, statistic: stats });
   },
 };

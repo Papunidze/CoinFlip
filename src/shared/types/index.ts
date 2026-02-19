@@ -5,4 +5,5 @@ export type {
   UserData,
   History,
   Balance,
+  BetStats,
 } from './coin';

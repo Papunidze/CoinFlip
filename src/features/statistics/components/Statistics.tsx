@@ -1,4 +1,4 @@
-import type { BetStats } from '../model/statistics';
+import type { BetStats } from '@shared/types';
 import { STAT_ITEMS } from '../model/stats-config';
 import { StatRow } from './StatRow';
 import { WinLossRatio } from './WinLossRatio';

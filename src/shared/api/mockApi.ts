@@ -45,6 +45,8 @@ export const mockApi = {
         };
 
         storage.saveBet(result);
+        storage.updateBalance(isWin ? betAmount : -betAmount, selectedCrypto);
+        mockApi.updateStatistic(result);
         resolve(result);
       }, responseTime);
     });
@@ -56,5 +58,24 @@ export const mockApi = {
         resolve(storage.getHistory());
       }, 400);
     });
+  },
+
+  updateStatistic: (result: History): void => {
+    const { statistic } = storage.getUser();
+
+    const newStats = {
+      totalBets: statistic.totalBets + 1,
+      wins: result.isWin ? statistic.wins + 1 : statistic.wins,
+      losses: result.isWin ? statistic.losses : statistic.losses + 1,
+      biggestWin: result.isWin
+        ? Math.max(statistic.biggestWin, result.payout)
+        : statistic.biggestWin,
+      biggestLoss: !result.isWin
+        ? Math.max(statistic.biggestLoss, result.amount)
+        : statistic.biggestLoss,
+      currentProfit: statistic.currentProfit + (result.payout - result.amount),
+    };
+
+    storage.updateStatistic(newStats);
   },
 };

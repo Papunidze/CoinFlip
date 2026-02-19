@@ -1,11 +1,4 @@
-export interface BetStats {
-  totalBets: number;
-  wins: number;
-  losses: number;
-  biggestWin: number;
-  biggestLoss: number;
-  currentProfit: number;
-}
+import type { BetStats } from '@shared/types';
 
 export const EMPTY_STATS: BetStats = {
   totalBets: 0,
