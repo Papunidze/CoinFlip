@@ -92,7 +92,7 @@ export const useBetSimulation = (user: UserData | null) => {
           ? martingaleAmountRef.current
           : latest.current.form.amount;
 
-        if (latest.current.maxAmount < betAmount) {
+        if (betAmount <= 0 || latest.current.maxAmount <= 0 || latest.current.maxAmount < betAmount) {
           stopAutoBet();
           break;
         }

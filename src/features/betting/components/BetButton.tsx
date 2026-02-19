@@ -22,7 +22,7 @@ const BetButton = ({
   nextBetAmount,
 }: BetButtonProps) => {
   const isStopMode = isAuto && isAutoActive;
-  const insufficientBalance = maxAmount <= 0 || amount > maxAmount;
+  const insufficientBalance = maxAmount <= 0 || amount <= 0 || amount > maxAmount;
 
   return (
     <button

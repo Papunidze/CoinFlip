@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import type {
   CoinSide,
   AnimationPhase,
@@ -23,6 +24,7 @@ export function useCoinFlip({
   onBetComplete,
 }: UseCoinFlipOptions = {}): UseCoinFlipReturn {
   const { mutateAsync: flipCoin } = useFlipCoin();
+  const queryClient = useQueryClient();
 
   const [phase, setPhase] = useState<AnimationPhase>('idle');
   const [result, setResult] = useState<CoinSide | null>(null);
@@ -52,6 +54,9 @@ export function useCoinFlip({
         flipCoin({ currency, betAmount }),
         new Promise<void>((r) => setTimeout(r, SPIN_DURATION)),
       ]);
+
+      queryClient.invalidateQueries({ queryKey: ['history'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
 
       const finalSide: CoinSide = betResult.isWin
         ? choice

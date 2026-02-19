@@ -148,7 +148,21 @@
     }
 
     &__balances {
-      display: none;
+      gap: 4px;
+    }
+
+    &__balance {
+      padding: 4px 8px;
+      gap: 3px;
+    }
+
+    &__balance-icon {
+      width: 13px;
+      height: 13px;
+    }
+
+    &__balance-value {
+      font-size: 10px;
     }
 
     &__profile {
@@ -177,6 +191,20 @@
 
     &__logo-text {
       font-size: var(--font-size-base);
+    }
+
+    &__username {
+      display: none;
+    }
+
+    &__balance-icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    &__balance {
+      padding: 3px 6px;
+      gap: 3px;
     }
   }
 }
