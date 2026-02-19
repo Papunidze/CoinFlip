@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\Users\\\\Papunidze\\\\Desktop\\\\CoinFlip\" /s /b)",
+      "Bash(findstr:*)",
+      "Bash(node -e:*)",
+      "Bash(node --version:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm install:*)",
+      "Bash(del \"C:\\\\Users\\\\Papunidze\\\\Desktop\\\\CoinFlip\\\\src\\\\app\\\\providers\\\\ToastProvider.tsx\")",
+      "Bash(del \"C:\\\\Users\\\\Papunidze\\\\Desktop\\\\CoinFlip\\\\src\\\\app\\\\providers\\\\_toast.scss\")"
+    ]
+  }
+}

@@ -24,6 +24,7 @@ export type Currency = (typeof CurrencyEnum)[keyof typeof CurrencyEnum];
 export type Balance = Record<Currency, number>;
 
 export interface History {
+  id: string;
   isWin: boolean;
   payout: number;
   amount: number;

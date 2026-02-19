@@ -1,4 +1,5 @@
 import type { UserData, Currency, History } from '@shared/types';
+import { v4 as uuidv4 } from 'uuid';
 import { storage } from './storage';
 
 export const mockApi = {
@@ -10,21 +11,12 @@ export const mockApi = {
     });
   },
 
-  getUserData: async (): Promise<UserData> => {
+  getUserData: async (): Promise<UserData | null> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(storage.getUser());
       }, 500);
     });
-  },
-
-  updateBalance: async (
-    currency: Currency,
-    newBalance: number,
-  ): Promise<void> => {
-    const data = storage.getUser();
-    data.balances[currency] = newBalance;
-    storage.saveUser(data);
   },
 
   flipCoin: async (
@@ -37,6 +29,7 @@ export const mockApi = {
       setTimeout(() => {
         const isWin = Math.random() >= 0.5;
         const result: History = {
+          id: uuidv4(),
           isWin,
           payout: isWin ? betAmount * 2 : 0,
           amount: betAmount,
@@ -61,8 +54,10 @@ export const mockApi = {
   },
 
   updateStatistic: (result: History): void => {
-    const { statistic } = storage.getUser();
+    const user = storage.getUser();
+    if (!user) return;
 
+    const { statistic } = user;
     const newStats = {
       totalBets: statistic.totalBets + 1,
       wins: result.isWin ? statistic.wins + 1 : statistic.wins,

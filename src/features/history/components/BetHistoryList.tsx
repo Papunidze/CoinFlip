@@ -10,12 +10,14 @@ export const BetHistoryList = () => {
     <>
       {data?.map((bet) => (
         <div
-          key={bet.timestamp}
+          key={bet.id}
           className={`bet-history__badge ${
             bet.isWin ? 'bet-history__badge--win' : 'bet-history__badge--lose'
           }`}
         >
-          {bet.isWin ? `+${bet.payout.toFixed(2)}` : `-${bet.amount.toFixed(2)}`}
+          {bet.isWin
+            ? `+${bet.payout.toFixed(2)}`
+            : `-${bet.amount.toFixed(2)}`}
         </div>
       ))}
     </>

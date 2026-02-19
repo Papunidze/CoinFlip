@@ -10,9 +10,16 @@ const STORAGE_KEYS = {
   USER: 'user',
 } as const;
 
+const requireUser = (): UserData => {
+  const user = storage.getUser();
+  if (!user) throw new Error('No user in storage');
+  return user;
+};
+
 export const storage = {
-  getUser: (): UserData => {
-    const data = localStorage.getItem(STORAGE_KEYS.USER)!;
+  getUser: (): UserData | null => {
+    const data = localStorage.getItem(STORAGE_KEYS.USER);
+    if (!data) return null;
     return JSON.parse(data) as UserData;
   },
 
@@ -21,41 +28,32 @@ export const storage = {
   },
 
   saveBalance: (newBalance: Balance): void => {
-    const userData = storage.getUser();
-
-    const updatedUser = {
-      ...userData,
-      balances: newBalance,
-    };
-    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(updatedUser));
+    const userData = requireUser();
+    storage.saveUser({ ...userData, balances: newBalance });
   },
 
   getHistory: (): History[] => {
-    const history = storage.getUser()?.history;
-    return history ?? [];
+    return storage.getUser()?.history ?? [];
   },
 
   saveBet: (bet: History): void => {
-    const userData = storage.getUser();
-    const updatedHistory = [bet, ...storage.getHistory()].slice(0, 20);
+    const userData = requireUser();
+    const updatedHistory = [bet, ...userData.history].slice(0, 20);
     storage.saveUser({ ...userData, history: updatedHistory });
   },
 
   updateBalance: (amount: number, currency: Currency): UserData => {
-    const user = storage.getUser();
-
+    const user = requireUser();
     const updatedBalance: Balance = {
       ...user.balances,
       [currency]: user.balances[currency] + amount,
     };
-
     storage.saveBalance(updatedBalance);
-
-    return storage.getUser();
+    return requireUser();
   },
 
   updateStatistic: (stats: BetStats): void => {
-    const userData = storage.getUser();
+    const userData = requireUser();
     storage.saveUser({ ...userData, statistic: stats });
   },
 };
