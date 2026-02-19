@@ -23,13 +23,19 @@ export const useBetSimulation = (user: UserData | null) => {
   });
 
   const [isAutoActive, setIsAutoActive] = useState(false);
+  const [nextBetAmount, setNextBetAmount] = useState<number | null>(null);
   const isAutoRunning = useRef(false);
   const sessionProfit = useRef(0);
+  const baseAmountRef = useRef(0);
+  const martingaleAmountRef = useRef(0);
 
   const stopAutoBet = useCallback(() => {
     isAutoRunning.current = false;
     sessionProfit.current = 0;
+    baseAmountRef.current = 0;
+    martingaleAmountRef.current = 0;
     setIsAutoActive(false);
+    setNextBetAmount(null);
   }, []);
 
   const onBetComplete = useCallback(
@@ -40,6 +46,20 @@ export const useBetSimulation = (user: UserData | null) => {
         ? betResult.payout - betResult.amount
         : -betResult.amount;
       sessionProfit.current += net;
+
+      if (latest.current.form.isMartingale) {
+        if (betResult.isWin) {
+          martingaleAmountRef.current = baseAmountRef.current;
+        } else {
+          const doubled = +(martingaleAmountRef.current * 2).toFixed(2);
+          if (doubled > latest.current.maxAmount) {
+            stopAutoBet();
+            return;
+          }
+          martingaleAmountRef.current = doubled;
+        }
+        setNextBetAmount(martingaleAmountRef.current);
+      }
 
       const { stopWin = 0, stopLoss = 0 } = latest.current.form;
       if (stopWin > 0 && sessionProfit.current >= stopWin) stopAutoBet();
@@ -67,13 +87,17 @@ export const useBetSimulation = (user: UserData | null) => {
   const runAutoBetLoop = useCallback(
     async (side: CoinSide) => {
       while (isAutoRunning.current) {
-        const { amount, currency } = latest.current.form;
-        if (latest.current.maxAmount < amount) {
+        const { currency, isMartingale } = latest.current.form;
+        const betAmount = isMartingale
+          ? martingaleAmountRef.current
+          : latest.current.form.amount;
+
+        if (latest.current.maxAmount < betAmount) {
           stopAutoBet();
           break;
         }
 
-        await flipRef.current(side, amount, currency);
+        await flipRef.current(side, betAmount, currency);
 
         if (!isAutoRunning.current) break;
         await new Promise<void>((r) => setTimeout(r, 300));
@@ -93,7 +117,10 @@ export const useBetSimulation = (user: UserData | null) => {
         }
         isAutoRunning.current = true;
         sessionProfit.current = 0;
+        baseAmountRef.current = amount;
+        martingaleAmountRef.current = amount;
         setIsAutoActive(true);
+        if (latest.current.form.isMartingale) setNextBetAmount(amount);
         runAutoBetLoop(side);
       } else {
         flipRef.current(side, amount, currency);
@@ -109,6 +136,7 @@ export const useBetSimulation = (user: UserData | null) => {
     hasWon,
     placeBet,
     isAutoActive,
+    nextBetAmount,
     form: clampedForm,
     maxAmount,
   };

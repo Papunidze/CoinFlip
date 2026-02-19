@@ -13,6 +13,7 @@ interface BetControllerProps {
   onBet: (side: CoinSide) => void;
   disabled: boolean;
   isAutoActive: boolean;
+  nextBetAmount: number | null;
   form: BetFormState;
   maxAmount: number;
   onSideChange: (side: CoinSide) => void;
@@ -23,6 +24,7 @@ const BetController = ({
   onBet,
   disabled,
   isAutoActive,
+  nextBetAmount,
   form,
   maxAmount,
   onSideChange,
@@ -50,6 +52,7 @@ const BetController = ({
           maxAmount={maxAmount}
           onSet={form.setAmount}
           disabled={controlsDisabled}
+          nextBetAmount={nextBetAmount}
         />
 
         <AutoBetConfig
@@ -57,6 +60,8 @@ const BetController = ({
           onToggle={form.setIsAuto}
           stopWin={form.stopWin}
           onStopWinChange={form.setStopWin}
+          isMartingale={form.isMartingale}
+          onMartinagale={form.setIsMartingale}
           stopLoss={form.stopLoss}
           onStopLossChange={form.setStopLoss}
           disabled={controlsDisabled}
@@ -71,6 +76,7 @@ const BetController = ({
         isAutoActive={isAutoActive}
         disabled={disabled}
         maxAmount={maxAmount}
+        nextBetAmount={nextBetAmount}
       />
     </div>
   );

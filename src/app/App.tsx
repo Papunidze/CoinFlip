@@ -23,7 +23,7 @@ const App = () => {
     closePopup,
     isPending,
   } = useAuth();
-  const { phase, result, hasWon, placeBet, isAutoActive, form, maxAmount } =
+  const { phase, result, hasWon, placeBet, isAutoActive, nextBetAmount, form, maxAmount } =
     useBetSimulation(user);
 
   if (isLoading) return <LoadingPage />;
@@ -44,6 +44,7 @@ const App = () => {
             onBet={placeBet}
             disabled={phase !== 'idle'}
             isAutoActive={isAutoActive}
+            nextBetAmount={nextBetAmount}
             form={form}
             maxAmount={maxAmount}
             onSideChange={setSelectedSide}

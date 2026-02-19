@@ -11,6 +11,7 @@ interface Props {
   maxAmount: number;
   onSet: (val: number) => void;
   disabled: boolean;
+  nextBetAmount?: number | null;
 }
 
 export const AmountControls = ({
@@ -18,6 +19,7 @@ export const AmountControls = ({
   maxAmount,
   onSet,
   disabled,
+  nextBetAmount,
 }: Props) => {
   const [editValue, setEditValue] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -46,6 +48,11 @@ export const AmountControls = ({
     <div className="bet-controller__controls">
       <div className="bet-controller__row">
         <span className="bet-controller__label">Bet</span>
+        {nextBetAmount != null && (
+          <span className="bet-controller__next-bet">
+            Next: {nextBetAmount.toFixed(2)}
+          </span>
+        )}
         <div className="bet-controller__amount-input">
           <button
             className="bet-controller__adjust-btn"

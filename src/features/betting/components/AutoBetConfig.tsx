@@ -12,6 +12,8 @@ interface Props {
   stopLoss: number;
   onStopLossChange: (val: number) => void;
   disabled: boolean;
+  isMartingale: boolean;
+  onMartinagale: (val: boolean) => void;
 }
 
 export const AutoBetConfig = ({
@@ -22,9 +24,15 @@ export const AutoBetConfig = ({
   stopLoss,
   onStopLossChange,
   disabled,
+  onMartinagale,
+  isMartingale,
 }: Props) => {
-  const [stopWinStr, setStopWinStr] = useState(stopWin > 0 ? String(stopWin) : '');
-  const [stopLossStr, setStopLossStr] = useState(stopLoss > 0 ? String(stopLoss) : '');
+  const [stopWinStr, setStopWinStr] = useState(
+    stopWin > 0 ? String(stopWin) : '',
+  );
+  const [stopLossStr, setStopLossStr] = useState(
+    stopLoss > 0 ? String(stopLoss) : '',
+  );
 
   return (
     <div className="bet-controller__auto-section">
@@ -41,43 +49,63 @@ export const AutoBetConfig = ({
           <span className="bet-controller__toggle-thumb" />
         </button>
       </div>
+
       {isEnabled && (
-        <div className="bet-controller__stop-row">
-          <div className="bet-controller__stop-field">
-            <span className="bet-controller__stop-label">Stop Win</span>
-            <input
-              className="bet-controller__stop-input"
-              type="number"
-              min="0"
-              step="0.01"
-              value={stopWinStr}
-              onKeyDown={blockInvalidKeys}
-              onChange={(e) => {
-                setStopWinStr(e.target.value);
-                onStopWinChange(e.target.value === '' ? 0 : Number(e.target.value));
-              }}
+        <>
+          <div className="bet-controller__auto-header">
+            <span className="bet-controller__label">Martingale</span>
+            <button
+              className={`bet-controller__toggle ${isMartingale ? 'bet-controller__toggle--active' : ''}`}
+              onClick={() => onMartinagale(!isMartingale)}
               disabled={disabled}
-              placeholder="0.00"
-            />
+              role="switch"
+              aria-checked={isEnabled}
+              aria-label="Toggle auto bet"
+            >
+              <span className="bet-controller__toggle-thumb" />
+            </button>
           </div>
-          <div className="bet-controller__stop-field">
-            <span className="bet-controller__stop-label">Stop Loss</span>
-            <input
-              className="bet-controller__stop-input"
-              type="number"
-              min="0"
-              step="0.01"
-              value={stopLossStr}
-              onKeyDown={blockInvalidKeys}
-              onChange={(e) => {
-                setStopLossStr(e.target.value);
-                onStopLossChange(e.target.value === '' ? 0 : Number(e.target.value));
-              }}
-              disabled={disabled}
-              placeholder="0.00"
-            />
+          <div className="bet-controller__stop-row">
+            <div className="bet-controller__stop-field">
+              <span className="bet-controller__stop-label">Stop Win</span>
+              <input
+                className="bet-controller__stop-input"
+                type="number"
+                min="0"
+                step="0.01"
+                value={stopWinStr}
+                onKeyDown={blockInvalidKeys}
+                onChange={(e) => {
+                  setStopWinStr(e.target.value);
+                  onStopWinChange(
+                    e.target.value === '' ? 0 : Number(e.target.value),
+                  );
+                }}
+                disabled={disabled}
+                placeholder="0.00"
+              />
+            </div>
+            <div className="bet-controller__stop-field">
+              <span className="bet-controller__stop-label">Stop Loss</span>
+              <input
+                className="bet-controller__stop-input"
+                type="number"
+                min="0"
+                step="0.01"
+                value={stopLossStr}
+                onKeyDown={blockInvalidKeys}
+                onChange={(e) => {
+                  setStopLossStr(e.target.value);
+                  onStopLossChange(
+                    e.target.value === '' ? 0 : Number(e.target.value),
+                  );
+                }}
+                disabled={disabled}
+                placeholder="0.00"
+              />
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
