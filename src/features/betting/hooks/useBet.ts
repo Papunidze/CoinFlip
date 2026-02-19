@@ -14,14 +14,6 @@ export const useBet = (user: UserData | null) => {
     ...form,
     setAmount: (val: number) =>
       form.setAmount(Math.min(Math.max(0.5, +Number(val).toFixed(2)), cap)),
-    adjustAmount: (factor: number) =>
-      form.setAmount(
-        Math.max(0.5, Math.min(+(form.amount * factor).toFixed(2), cap)),
-      ),
-    addAmount: (step: number) =>
-      form.setAmount(
-        Math.max(0.5, Math.min(+(form.amount + step).toFixed(2), cap)),
-      ),
   };
 
   const latest = useRef({ form, maxAmount, user });

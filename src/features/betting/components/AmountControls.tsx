@@ -1,54 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   BET_ACTIONS,
   QUICK_BETS,
   STEP_BUTTONS,
-  type ActionType,
   type AmountAction,
 } from '../model/amount-controls';
 
 interface Props {
   amount: number;
   maxAmount: number;
-  onAdjust: (factor: number) => void;
-  onAdd: (step: number) => void;
   onSet: (val: number) => void;
   disabled: boolean;
 }
 
-const handlers: Record<
-  ActionType,
-  keyof Pick<Props, 'onSet' | 'onAdjust' | 'onAdd'>
-> = {
-  set: 'onSet',
-  adjust: 'onAdjust',
-  add: 'onAdd',
-};
-
 export const AmountControls = ({
   amount,
   maxAmount,
-  onAdjust,
-  onAdd,
   onSet,
   disabled,
 }: Props) => {
-  const [inputValue, setInputValue] = useState(
-    amount > 0 ? amount.toFixed(2) : '',
-  );
+  const [editValue, setEditValue] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    setInputValue(amount > 0 ? amount.toFixed(2) : '');
-  }, [amount]);
-
-  const actions = { onSet, onAdjust, onAdd };
+  const inputValue = isEditing
+    ? editValue
+    : amount > 0
+      ? amount.toFixed(2)
+      : '';
 
   const handleClick = (action: AmountAction) => {
     if (action.label === 'MAX') {
       onSet(maxAmount);
       return;
     }
-    actions[handlers[action.type]](action.value);
+    if (action.type === 'set') {
+      onSet(Math.min(action.value, maxAmount));
+    } else if (action.type === 'adjust') {
+      onSet(Math.min(amount * action.value, maxAmount));
+    } else if (action.type === 'add') {
+      onSet(Math.min(amount + action.value, maxAmount));
+    }
   };
 
   return (
@@ -67,17 +58,20 @@ export const AmountControls = ({
             className="bet-controller__input"
             type="number"
             value={inputValue}
-            onFocus={(e) => e.target.select()}
+            onFocus={(e) => {
+              setIsEditing(true);
+              setEditValue(amount > 0 ? amount.toFixed(2) : '');
+              e.target.select();
+            }}
             onKeyDown={(e) => {
               if (['-', '+', 'e', 'E', ','].includes(e.key)) e.preventDefault();
             }}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => setEditValue(e.target.value)}
             onBlur={() => {
-              const num = parseFloat(inputValue);
+              setIsEditing(false);
+              const num = parseFloat(editValue);
               if (!isNaN(num) && num > 0) {
-                onSet(num);
-              } else {
-                setInputValue(amount > 0 ? amount.toFixed(2) : '');
+                onSet(Math.min(num, maxAmount));
               }
             }}
             disabled={disabled}

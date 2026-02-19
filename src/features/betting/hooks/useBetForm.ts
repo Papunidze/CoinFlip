@@ -8,11 +8,6 @@ export const useBetForm = () => {
   const [stopWin, setStopWin] = useState<number>(0);
   const [stopLoss, setStopLoss] = useState<number>(0);
 
-  const adjustAmount = (factor: number) =>
-    setAmount((prev) => +(prev * factor).toFixed(2));
-  const addAmount = (step: number) =>
-    setAmount((prev) => Math.max(0.5, +(prev + step).toFixed(2)));
-
   return {
     amount,
     setAmount: (val: number) => setAmount(val),
@@ -24,8 +19,6 @@ export const useBetForm = () => {
     setStopWin,
     stopLoss,
     setStopLoss,
-    adjustAmount,
-    addAmount,
   };
 };
 

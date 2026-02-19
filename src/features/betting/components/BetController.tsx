@@ -48,8 +48,6 @@ const BetController = ({
         <AmountControls
           amount={form.amount}
           maxAmount={maxAmount}
-          onAdjust={form.adjustAmount}
-          onAdd={form.addAmount}
           onSet={form.setAmount}
           disabled={controlsDisabled}
         />
